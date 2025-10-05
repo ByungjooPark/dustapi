@@ -1,0 +1,76 @@
+'use strict';
+
+/** @type {import('sequelize-cli').Migration} */
+export default {
+  async up (queryInterface, Sequelize) {
+    const attributes = [
+      {id: 1, district_name: '서울', move_name: '서울권역', region_name: '서울특별시 전 지역', created_at: new Date(), updated_at: new Date()},
+      {id: 2, district_name: '부산', move_name: '남부권역', region_name: '동구, 서구, 남구, 중구, 수영구, 영도구, 해운대구', created_at: new Date(), updated_at: new Date()},
+      {id: 3, district_name: '부산', move_name: '동부권역', region_name: '기장군', created_at: new Date(), updated_at: new Date()},
+      {id: 4, district_name: '부산', move_name: '서부권역', region_name: '강서구, 북구, 사상구, 사하구', created_at: new Date(), updated_at: new Date()},
+      {id: 5, district_name: '부산', move_name: '중부권역', region_name: '금정구, 동래구, 연제구, 부산진구', created_at: new Date(), updated_at: new Date()},
+      {id: 6, district_name: '대구', move_name: '대구권역', region_name: '중구, 동구, 서구, 남구, 북구, 수성구, 달서구, 달성군', created_at: new Date(), updated_at: new Date()},
+      {id: 7, district_name: '대구', move_name: '군위권역', region_name: '군위군', created_at: new Date(), updated_at: new Date()},
+      {id: 8, district_name: '인천', move_name: '강화권역', region_name: '강화군', created_at: new Date(), updated_at: new Date()},
+      {id: 9, district_name: '인천', move_name: '동남부권역', region_name: '계양구, 부평구, 미추홀구, 연수구, 남동구', created_at: new Date(), updated_at: new Date()},
+      {id: 10, district_name: '인천', move_name: '서부권역', region_name: '서구, 중구(영종도․용유도 제외), 동구', created_at: new Date(), updated_at: new Date()},
+      {id: 11, district_name: '인천', move_name: '영종·영흥권역', region_name: '중구(영종도·용유도), 옹진군(영흥)', created_at: new Date(), updated_at: new Date()},
+      {id: 12, district_name: '광주', move_name: '광주권역', region_name: '광주광역시 전 지역', created_at: new Date(), updated_at: new Date()},
+      {id: 13, district_name: '대전', move_name: '동부권역', region_name: '동구, 대덕구, 중구', created_at: new Date(), updated_at: new Date()},
+      {id: 14, district_name: '대전', move_name: '서부권역', region_name: '서구, 유성구', created_at: new Date(), updated_at: new Date()},
+      {id: 15, district_name: '울산', move_name: '울산권역', region_name: '울산광역시 전 지역', created_at: new Date(), updated_at: new Date()},
+      {id: 16, district_name: '세종', move_name: '세종권역', region_name: '세종시 전 권역', created_at: new Date(), updated_at: new Date()},
+      {id: 17, district_name: '경기', move_name: '남부권', region_name: '용인시, 평택시, 안성시, 이천시, 여주시', created_at: new Date(), updated_at: new Date()},
+      {id: 18, district_name: '경기', move_name: '동부권', region_name: '남양주시, 구리시, 하남시, 광주시, 성남시, 가평군, 양평군', created_at: new Date(), updated_at: new Date()},
+      {id: 19, district_name: '경기', move_name: '북부권', region_name: '김포시, 고양시, 의정부시, 파주시, 연천군, 양주시, 동두천시, 포천시', created_at: new Date(), updated_at: new Date()},
+      {id: 20, district_name: '경기', move_name: '중부권', region_name: '수원시, 안산시, 안양시, 부천시, 시흥시, 광명시, 군포시, 의왕시, 과천시, 화성시, 오산시', created_at: new Date(), updated_at: new Date()},
+      {id: 21, district_name: '강원', move_name: '영서북부', region_name: '춘천시, 철원군, 양구군, 홍천군, 화천군, 인제군', created_at: new Date(), updated_at: new Date()},
+      {id: 22, district_name: '강원', move_name: '영서남부', region_name: '원주시, 횡성군, 평창군, 영월군, 정선군', created_at: new Date(), updated_at: new Date()},
+      {id: 23, district_name: '강원', move_name: '영동북부', region_name: '고성군, 양양군, 속초시', created_at: new Date(), updated_at: new Date()},
+      {id: 24, district_name: '강원', move_name: '영동남부', region_name: '강릉시, 동해시, 삼척시, 태백시', created_at: new Date(), updated_at: new Date()},
+      {id: 25, district_name: '충북', move_name: '북부권역', region_name: '충주시, 제천시, 단양군', created_at: new Date(), updated_at: new Date()},
+      {id: 26, district_name: '충북', move_name: '중부권역', region_name: '청주시, 증평군, 진천군, 괴산군, 음성군', created_at: new Date(), updated_at: new Date()},
+      {id: 27, district_name: '충북', move_name: '남부권역', region_name: '보은군, 옥천군, 영동군', created_at: new Date(), updated_at: new Date()},
+      {id: 28, district_name: '충남', move_name: '동남부권역', region_name: '공주시, 청양군, 부여군, 논산시, 계룡시, 금산군', created_at: new Date(), updated_at: new Date()},
+      {id: 29, district_name: '충남', move_name: '북부권역', region_name: '천안시, 아산시, 당진시', created_at: new Date(), updated_at: new Date()},
+      {id: 30, district_name: '충남', move_name: '서부권역', region_name: '서산시, 태안군, 예산군, 홍성군, 보령시, 서천군', created_at: new Date(), updated_at: new Date()},
+      {id: 31, district_name: '전북', move_name: '중부권역', region_name: '전주시, 익산시, 완주군', created_at: new Date(), updated_at: new Date()},
+      {id: 32, district_name: '전북', move_name: '서부권역', region_name: '군산시, 정읍시, 김제시, 고창군, 부안군', created_at: new Date(), updated_at: new Date()},
+      {id: 33, district_name: '전북', move_name: '동부권역', region_name: '남원시, 진안군, 무주군, 장수군, 임실군, 순창군', created_at: new Date(), updated_at: new Date()},
+      {id: 34, district_name: '전남', move_name: '동부권', region_name: '여수시, 순천시, 광양시, 곡성군, 구례군, 고흥군, 보성군', created_at: new Date(), updated_at: new Date()},
+      {id: 35, district_name: '전남', move_name: '서부권', region_name: '목포시, 해남군, 영암군, 무안군, 함평군, 영광군, 진도군, 신안군', created_at: new Date(), updated_at: new Date()},
+      {id: 36, district_name: '전남', move_name: '중부권', region_name: '나주시, 담양군, 화순군, 장흥군, 강진군, 장성군, 완도군', created_at: new Date(), updated_at: new Date()},
+      {id: 37, district_name: '경북', move_name: '동부권역', region_name: '포항시, 경주시, 경산시, 영천시, 청도군, 청송군, 영덕군, 영양군, 봉화군, 울진군', created_at: new Date(), updated_at: new Date()},
+      {id: 38, district_name: '경북', move_name: '서부권역', region_name: '구미시, 김천시, 안동시, 영주시, 상주시, 문경시, 예천군, 의성군, 성주군, 고령군, 칠곡군', created_at: new Date(), updated_at: new Date()},
+      {id: 39, district_name: '경북', move_name: '울릉권역', region_name: '울릉군', created_at: new Date(), updated_at: new Date()},
+      {id: 40, district_name: '경남', move_name: '거제권역', region_name: '거제시', created_at: new Date(), updated_at: new Date()},
+      {id: 41, district_name: '경남', move_name: '거창권역', region_name: '거창군', created_at: new Date(), updated_at: new Date()},
+      {id: 42, district_name: '경남', move_name: '고성권역', region_name: '고성군', created_at: new Date(), updated_at: new Date()},
+      {id: 43, district_name: '경남', move_name: '김해권역', region_name: '김해시', created_at: new Date(), updated_at: new Date()},
+      {id: 44, district_name: '경남', move_name: '남해권역', region_name: '남해군', created_at: new Date(), updated_at: new Date()},
+      {id: 45, district_name: '경남', move_name: '밀양권역', region_name: '밀양시', created_at: new Date(), updated_at: new Date()},
+      {id: 46, district_name: '경남', move_name: '사천권역', region_name: '사천시', created_at: new Date(), updated_at: new Date()},
+      {id: 47, district_name: '경남', move_name: '산청권역', region_name: '산청군', created_at: new Date(), updated_at: new Date()},
+      {id: 48, district_name: '경남', move_name: '양산권역', region_name: '양산시', created_at: new Date(), updated_at: new Date()},
+      {id: 49, district_name: '경남', move_name: '의령권역', region_name: '의령군', created_at: new Date(), updated_at: new Date()},
+      {id: 50, district_name: '경남', move_name: '진주권역', region_name: '진주시', created_at: new Date(), updated_at: new Date()},
+      {id: 51, district_name: '경남', move_name: '창녕권역', region_name: '창녕군', created_at: new Date(), updated_at: new Date()},
+      {id: 52, district_name: '경남', move_name: '창원권역', region_name: '창원시', created_at: new Date(), updated_at: new Date()},
+      {id: 53, district_name: '경남', move_name: '통영권역', region_name: '통영시', created_at: new Date(), updated_at: new Date()},
+      {id: 54, district_name: '경남', move_name: '하동권역', region_name: '하동군', created_at: new Date(), updated_at: new Date()},
+      {id: 55, district_name: '경남', move_name: '함안권역', region_name: '함안군', created_at: new Date(), updated_at: new Date()},
+      {id: 56, district_name: '경남', move_name: '함양권역', region_name: '함양군', created_at: new Date(), updated_at: new Date()},
+      {id: 57, district_name: '경남', move_name: '합천권역', region_name: '합천군', created_at: new Date(), updated_at: new Date()},
+      {id: 58, district_name: '제주', move_name: '제주권역', region_name: '제주 전 지역', created_at: new Date(), updated_at: new Date()},
+    ];
+    
+    await queryInterface.bulkInsert(
+      'locations',
+      attributes
+    )
+  },
+
+  async down (queryInterface, Sequelize) {
+    await queryInterface.bulkDelete('locations', null, {});
+  }
+};
