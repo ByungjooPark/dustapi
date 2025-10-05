@@ -1,4 +1,4 @@
-import { itemCode, numOfRows, pageNo, returnType, serviceKey, year } from './fields/getUlfptcaAlarmInfoField.js';
+import { itemCode, numOfRows, pageNo, returnType, serviceKey, year } from './fields/ulfptcaAlarmInqireSvcField.js';
 
 export default [
   serviceKey,

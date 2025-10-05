@@ -1,6 +1,6 @@
 import { validationResult } from 'express-validator';
-import { BaseResponseDTO } from '../dto/responseDTO/BaseResponseDTO.js';
 import { responseCodeConfig } from '../configs/responseCodeConfig.js';
+import { createBaseResponseDTO } from '../dto/baseResponseDTO.js';
 
 export default function validationHandler(request, response, next) {
   const errors = validationResult(request);
@@ -14,8 +14,8 @@ export default function validationHandler(request, response, next) {
   }
   
   if (!errors.isEmpty()) {
-    const baseResponseDTO = new BaseResponseDTO(responseCode.code, responseCode.msg, { errors: errors.array() });
-    return response.status(responseCode.status).json(baseResponseDTO.getResponse());
+    const errorCustom = errors.formatWith(error => `${error.path}: ${error.msg}`);
+    return response.status(responseCodeConfig.BAD_REQUEST_ERROR.status).send(createBaseResponseDTO(responseCodeConfig.BAD_REQUEST_ERROR, { errors: errorCustom.array() }));
   }
 
   next();
