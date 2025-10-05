@@ -11,8 +11,13 @@ export default {
         type: DataTypes.BIGINT.UNSIGNED,
         primaryKey: true,
         allowNull: false,
-        autoIncrement: true,
+        autoIncrement: false,
         comment: '측정소 코드 (PK)',
+      },
+      location_id: {
+        type: DataTypes.BIGINT.UNSIGNED,
+        allowNull: false,
+        comment: '권역 고유 ID',
       },
       station_name: {
         type: DataTypes.STRING(30),
@@ -23,6 +28,11 @@ export default {
         type: DataTypes.STRING(200),
         allowNull: false,
         comment: '측정소 주소',
+      },
+      sido_fullname: {
+        type: DataTypes.STRING(20),
+        allowNull: false,
+        comment: '시도명전체',
       },
       sido_name: {
         type: DataTypes.STRING(20),
