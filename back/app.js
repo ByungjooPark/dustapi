@@ -7,8 +7,8 @@ import { responseCodeConfig } from './configs/responseCodeConfig.js';
 
 const app = express(); // Express 애플리케이션 인스턴스를 생성
 
-app.use('B552584/ArpltnInforInqireSvc', routerArpltnInforInqireSvc);
-app.use('B552584/UlfptcaAlarmInqireSvc', reuterUlfptcaAlarmInqireSvc);
+app.use('/B552584/ArpltnInforInqireSvc', routerArpltnInforInqireSvc);
+app.use('/B552584/UlfptcaAlarmInqireSvc', reuterUlfptcaAlarmInqireSvc);
 
 // Not Found
 app.use((req, res) => {
