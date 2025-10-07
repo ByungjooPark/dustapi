@@ -1,3 +1,9 @@
+/**
+ * @file seerders/20251003102859-locationsSeeder.js
+ * @description locationsSeeder 시더 파일
+ * 251007 v1.0 meerkat
+ */
+
 'use strict';
 import locations from './base/processing/locations.js';
 

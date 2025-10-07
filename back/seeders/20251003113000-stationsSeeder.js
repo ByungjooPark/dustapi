@@ -1,3 +1,9 @@
+/**
+ * @file seerders/20251003113000-stationsSeeder.js
+ * @description stationsSeeder 시더 파일
+ * 251007 v1.0 meerkat
+ */
+
 'use strict';
 import stations from './base/processing/stations.js';
 

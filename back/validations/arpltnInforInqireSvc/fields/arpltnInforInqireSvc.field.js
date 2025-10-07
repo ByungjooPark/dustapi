@@ -1,5 +1,11 @@
+/**
+ * @file validations/arpltnInforInqireSvc/fields/arpltnInforInqireSvc.field.js
+ * @description `arpltnInforInqireSvc` 유효성 검사에서 사용하는 필드 정의 파일
+ * 251007 v1.0 meerkat
+ */
+
 import { query } from 'express-validator';
-import { dateTermList, informCodeList, sidoNameList } from '../../../configs/paramsConfig.js';
+import { dateTermList, informCodeList, sidoNameList, verList } from '../../../configs/fieldParams.config.js';
 
 // serviceKey: 필수
 export const serviceKey = query('serviceKey')
@@ -59,3 +65,9 @@ export const informCode = query('informCode')
   .optional()
   .isIn(informCodeList)
   .withMessage(`${informCodeList.join(', ')}만 허용됩니다.`);
+
+// ver: 선택
+export const ver = query('ver')
+  .optional()
+  .isIn(verList)
+  .withMessage(`${verList.join(', ')}만 허용됩니다.`);

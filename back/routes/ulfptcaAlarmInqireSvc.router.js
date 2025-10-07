@@ -1,5 +1,11 @@
+/**
+ * @file routes/ulfptcaAlarmInqireSvc.router.js
+ * @description ulfptcaAlarmInqireSvc 라우터 파일
+ * 251007 v1.0 meerkat
+ */
+
 import express from 'express';
-import getUlfptcaAlarmInfoValidator from '../validations/ulfptcaAlarmInqireSvc/getUlfptcaAlarmInfoValidator.js';
+import getUlfptcaAlarmInfoValidator from '../validations/ulfptcaAlarmInqireSvc/getUlfptcaAlarmInfo.validator.js';
 import validationHandler from '../validations/validationHandler.js';
 
 

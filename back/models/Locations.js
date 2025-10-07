@@ -1,3 +1,9 @@
+/**
+ * @file models/Locations.js
+ * @description Locations 모델 파일
+ * 251007 v1.0 meerkat
+ */
+
 import { DataTypes } from "sequelize";
 
 const attributes = {

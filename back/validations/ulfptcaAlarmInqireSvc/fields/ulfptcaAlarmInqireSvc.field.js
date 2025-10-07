@@ -1,3 +1,9 @@
+/**
+ * @file validations/ulfptcaAlarmInqireSvc/fields/ulfptcaAlarmInqireSvc.field.js
+ * @description `ulfptcaAlarmInqireSvc` 유효성 검사에서 사용하는 필드 정의 파일
+ * 251007 v1.0 meerkat
+ */
+
 import { query } from 'express-validator';
 
 // serviceKey: 필수

@@ -1,6 +1,12 @@
+/**
+ * @file validations/validationHandler.js
+ * @description 유효성 검사 핸들러 파일
+ * 251007 v1.0 meerkat
+ */
+
 import { validationResult } from 'express-validator';
-import { responseCodeConfig } from '../configs/responseCodeConfig.js';
-import { createBaseResponseDTO } from '../dto/baseResponseDTO.js';
+import { BAD_REQUEST_ERROR, UNAUTHORIZED_ERROR } from '../configs/responseCode.config.js';
+import { createbaseResponseDTO } from '../dto/baseResponse.dto.js';
 
 export default function validationHandler(request, response, next) {
   const errors = validationResult(request);
@@ -8,14 +14,14 @@ export default function validationHandler(request, response, next) {
 
   let responseCode = null;
   if(!serviceKeyErrFlg) {
-    responseCode = responseCodeConfig['10'];
+    responseCode = BAD_REQUEST_ERROR;
   } else {
-    responseCode = responseCodeConfig['30'];
+    responseCode = UNAUTHORIZED_ERROR;
   }
   
   if (!errors.isEmpty()) {
     const errorCustom = errors.formatWith(error => `${error.path}: ${error.msg}`);
-    return response.status(responseCodeConfig.BAD_REQUEST_ERROR.status).send(createBaseResponseDTO(responseCodeConfig.BAD_REQUEST_ERROR, { errors: errorCustom.array() }));
+    return response.status(responseCode.status).send(createbaseResponseDTO(responseCode, { errors: errorCustom.array() }));
   }
 
   next();

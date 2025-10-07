@@ -1,17 +1,22 @@
+/**
+ * @file routes/arpltnInforInqireSvc.router.js
+ * @description arpltnInforInqireSvc 라우터 파일
+ * 251007 v1.0 meerkat
+ */
+
 import express from 'express';
-import getMsrstnAcctoRltmMesureDnstyValidator from '../validations/arpltnInforInqireSvc/getMsrstnAcctoRltmMesureDnstyValidator.js';
+import getMsrstnAcctoRltmMesureDnstyValidator from '../validations/arpltnInforInqireSvc/getMsrstnAcctoRltmMesureDnsty.validator.js';
 import validationHandler from '../validations/validationHandler.js';
-import getUnityAirEnvrnIdexSnstiveAboveMsrstnListValidator from '../validations/arpltnInforInqireSvc/getUnityAirEnvrnIdexSnstiveAboveMsrstnListValidator.js';
-import getCtprvnRltmMesureDnstyValidator from '../validations/arpltnInforInqireSvc/getCtprvnRltmMesureDnstyValidator.js';
-import getMinuDustFrcstDspthValidator from '../validations/arpltnInforInqireSvc/getMinuDustFrcstDspthValidator.js';
-import getMinuDustWeekFrcstDspthValidator from '../validations/arpltnInforInqireSvc/getMinuDustWeekFrcstDspthValidator.js';
+import getUnityAirEnvrnIdexSnstiveAboveMsrstnListValidator from '../validations/arpltnInforInqireSvc/getUnityAirEnvrnIdexSnstiveAboveMsrstnList.validator.js';
+import getCtprvnRltmMesureDnstyValidator from '../validations/arpltnInforInqireSvc/getCtprvnRltmMesureDnsty.validator.js';
+import getMinuDustFrcstDspthValidator from '../validations/arpltnInforInqireSvc/getMinuDustFrcstDspth.validator.js';
+import getMinuDustWeekFrcstDspthValidator from '../validations/arpltnInforInqireSvc/getMinuDustWeekFrcstDspth.validator.js';
+import { getMsrstnAcctoRltmMesureDnsty } from '../controllers/arpltnInforInqireSvc.controller.js';
 
 const router = express.Router();
 
 // 측정소별 실시간 측정정보 조회
-router.get('/getMsrstnAcctoRltmMesureDnsty', getMsrstnAcctoRltmMesureDnstyValidator, validationHandler, (req, res) => {
-res.send('getMsrstnAcctoRltmMesureDnsty');
-});
+router.get('/getMsrstnAcctoRltmMesureDnsty', getMsrstnAcctoRltmMesureDnstyValidator, validationHandler, getMsrstnAcctoRltmMesureDnsty);
 
 // 통합대기환경지수 나쁨 이상 측정소 목록조회
 router.get('/getUnityAirEnvrnIdexSnstiveAboveMsrstnList', getUnityAirEnvrnIdexSnstiveAboveMsrstnListValidator, validationHandler, (req, res) => {

@@ -1,3 +1,9 @@
+/**
+ * @file seerders/20251003102859-observationsSeeder.js
+ * @description observationsSeeder 시더 파일
+ * 251007 v1.0 meerkat
+ */
+
 'use strict';
 import fs from 'fs';
 import path from 'path';

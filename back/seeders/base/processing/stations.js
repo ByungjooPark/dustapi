@@ -1,3 +1,9 @@
+/**
+ * @file seerders/base/processing/stations.js
+ * @description 측정소 리스트 완성 파일(사전 generateStations.js 실행 필요)
+ * 251007 v1.0 meerkat
+ */
+
 export default [
   {
     station_code: 111121,

@@ -1,3 +1,9 @@
+/**
+ * @file seerders/base/processing/generateStations.js
+ * @description 좌표포함 stations 리스트 파일 작성 파일
+ * 251007 v1.0 meerkat
+ */
+
 import axios from 'axios';
 import '../../../configs/envConfig.js';
 import alternativeAddr from './alternativeAddr.js';

@@ -1,3 +1,9 @@
+/**
+ * @file configs/sequelizeCli.config.js
+ * @description sequelize-Cli 설정 파일
+ * 251007 v1.0 meerkat
+ */
+
 import './envConfig.js';
 
 const config = {

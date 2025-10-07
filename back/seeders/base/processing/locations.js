@@ -1,3 +1,9 @@
+/**
+ * @file seerders/base/processing/locations.js
+ * @description locations 리스트 파일
+ * 251007 v1.0 meerkat
+ */
+
 export default [
   {id: 1, district_name: '서울', move_name: '서울권역', region_name: '서울특별시 전 지역', created_at: new Date(), updated_at: new Date()},
   {id: 2, district_name: '부산', move_name: '남부권역', region_name: '동구, 서구, 남구, 중구, 수영구, 영도구, 해운대구', created_at: new Date(), updated_at: new Date()},

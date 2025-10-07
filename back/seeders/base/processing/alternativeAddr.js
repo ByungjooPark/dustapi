@@ -1,3 +1,9 @@
+/**
+ * @file seerders/base/processing/alternativeAddr.js
+ * @description 유효 주소 변경 필요 리스트 파일
+ * 251007 v1.0 meerkat
+ */
+
 export default [
   {origin: "서울 강서구 마곡동 727-1091", alternative: "서울 강서구 공항대로 195"},
   {origin: "서울 동작구 사당2동 739", alternative: "서울 동작구 동작대로 145"},
