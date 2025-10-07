@@ -73,7 +73,13 @@ const attributes = {
     field: 'khai_value',
     type: DataTypes.STRING(10),
     allowNull: false,
-    comment: '통합대기환경수치',
+    comment: '통합대기환경지수',
+  },
+  khaiCode: {
+    field: 'khai_code',
+    type: DataTypes.STRING(10),
+    allowNull: false,
+    comment: '통합대기환경지수 항목',
   },
   khaiGrade: {
     field: 'khai_grade',

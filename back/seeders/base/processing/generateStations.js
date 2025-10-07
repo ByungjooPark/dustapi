@@ -1,11 +1,13 @@
 import axios from 'axios';
-import '../../configs/envConfig.js';
+import '../../../configs/envConfig.js';
 import alternativeAddr from './alternativeAddr.js';
+import path from 'path';
 import fs from 'fs';
 import readline from 'readline';
 import locations from './locations.js';
 
-const filePath = 'seeders/baseData/dustFile/2502.txt';
+const dirPath = path.resolve('seeders/base/stations');
+const filePath = `${dirPath}/2502.txt`;
 const resultStatinsBase = [];
 
 try {
@@ -13,7 +15,7 @@ try {
   const stream = fs.createReadStream(filePath);
   const reader = readline.createInterface({
     input: stream,
-    culfDelay: Infinity
+    crlfDelay: Infinity
   });
 
   // 지역, 망, 측정소코드, 측정소명, 주소
@@ -198,6 +200,6 @@ async function setGeocoder(result) {
     resultStations.push(item);
   }
   
-  fs.writeFileSync('seeders/baseData/stations.txt', `export default ${JSON.stringify(resultStations, null, 2)}`);
-  fs.writeFileSync('seeders/baseData/stations_error.txt', JSON.stringify(resultErrorStations, null, 2));
+  fs.writeFileSync(`${dirPath}/stations.txt`, `export default ${JSON.stringify(resultStations, null, 2)}`);
+  fs.writeFileSync(`${dirPath}/stations_error.txt`, JSON.stringify(resultErrorStations, null, 2));
 }

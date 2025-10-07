@@ -67,7 +67,12 @@ export default {
       khai_value: {
         type: DataTypes.STRING(10),
         allowNull: false,
-        comment: '통합대기환경수치',
+        comment: '통합대기환경지수',
+      },
+      khai_code: {
+        type: DataTypes.STRING(10),
+        allowNull: false,
+        comment: '통합대기환경지수 항목',
       },
       khai_grade: {
         type: DataTypes.STRING(10),

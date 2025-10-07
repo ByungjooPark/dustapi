@@ -1,5 +1,5 @@
 'use strict';
-import locations from './baseData/locations.js';
+import locations from './base/processing/locations.js';
 
 /** @type {import('sequelize-cli').Migration} */
 export default {
