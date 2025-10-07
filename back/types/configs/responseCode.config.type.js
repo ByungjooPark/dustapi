@@ -14,4 +14,4 @@
  * @property {number} status - HTTP Status
  */
 
-export {}
+export {};

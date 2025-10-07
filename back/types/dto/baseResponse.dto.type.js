@@ -11,4 +11,4 @@
  * @property {any} [response.body]
  */
 
-export {}
+export {};
