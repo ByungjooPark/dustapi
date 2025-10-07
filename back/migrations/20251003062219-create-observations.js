@@ -1,3 +1,9 @@
+/**
+ * @file models/20251003062219-create-observations.js
+ * @description observations 테이블 생성
+ * 251007 v1.0 meerkat
+ */
+
 'use strict';
 
 import { DataTypes } from 'sequelize';
