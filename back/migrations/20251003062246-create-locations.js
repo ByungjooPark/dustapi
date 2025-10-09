@@ -1,5 +1,5 @@
 /**
- * @file models/20251003062246-create-locations.js
+ * @file migrations/20251003062246-create-locations.js
  * @description locations 테이블 생성
  * 251007 v1.0 meerkat
  */

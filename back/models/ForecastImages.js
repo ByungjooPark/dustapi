@@ -5,6 +5,7 @@
  */
 
 import { DataTypes } from "sequelize";
+import { dateFormatter } from "../utils/dateFormatter.util.js";
 
 const attributes = {
   id: {
@@ -34,21 +35,42 @@ const attributes = {
     comment: '이미지 URL',
   },
   createdAt: {
-      field: 'created_at'
-      ,type: DataTypes.DATE
+    field: 'created_at',
+    type: DataTypes.DATE,
+    get() {
+      const val = this.getDataValue('createdAt');
+      if(!val) {
+        return null;
+      }
+      return dateFormatter(val, 'YYYY-MM-DD HH:mm:ss', 'YYYY-MM-DD HH:mm:ss');
+    }
   }
   ,updatedAt: {
-      field: 'updated_at'
-      ,type: DataTypes.DATE
+    field: 'updated_at',
+    type: DataTypes.DATE,
+    get() {
+      const val = this.getDataValue('createdAt');
+      if(!val) {
+        return null;
+      }
+      return dateFormatter(val, 'YYYY-MM-DD HH:mm:ss', 'YYYY-MM-DD HH:mm:ss');
+    }
   }
   ,deletedAt: {
-      field: 'deleted_at'
-      ,type: DataTypes.DATE
+    field: 'deleted_at',
+    type: DataTypes.DATE,
+    get() {
+      const val = this.getDataValue('createdAt');
+      if(!val) {
+        return null;
+      }
+      return dateFormatter(val, 'YYYY-MM-DD HH:mm:ss', 'YYYY-MM-DD HH:mm:ss');
+    }
   }
 }
 
 const options = {
-  tableName: 'ForecastImages',
+  tableName: 'forecast_images',
   timestamps: true,
   paranoid: true,
 }
@@ -56,7 +78,7 @@ const options = {
 const ForecastImages = {
   init: sequelize => {
     const defineForecastImages = sequelize.define(
-      'ForecastImages',
+      'ForecastImage',
       attributes,
       options
     );

@@ -1,5 +1,5 @@
 /**
- * @file models/20251003062231-create-forecast_images.js
+ * @file migrations/20251003062231-create-forecast_images.js
  * @description forecast_images 테이블 생성
  * 251007 v1.0 meerkat
  */

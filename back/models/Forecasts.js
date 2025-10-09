@@ -5,6 +5,7 @@
  */
 
 import { DataTypes } from "sequelize";
+import { dateFormatter } from "../utils/dateFormatter.util.js";
 
 const attributes = {
   id: {
@@ -58,21 +59,42 @@ const attributes = {
     comment: '예측통보시간(YYYY-MM-DD)',
   },
   createdAt: {
-      field: 'created_at'
-      ,type: DataTypes.DATE
+    field: 'created_at',
+    type: DataTypes.DATE,
+    get() {
+      const val = this.getDataValue('createdAt');
+      if(!val) {
+        return null;
+      }
+      return dateFormatter(val, 'YYYY-MM-DD HH:mm:ss', 'YYYY-MM-DD HH:mm:ss');
+    }
   }
   ,updatedAt: {
-      field: 'updated_at'
-      ,type: DataTypes.DATE
+    field: 'updated_at',
+    type: DataTypes.DATE,
+    get() {
+      const val = this.getDataValue('createdAt');
+      if(!val) {
+        return null;
+      }
+      return dateFormatter(val, 'YYYY-MM-DD HH:mm:ss', 'YYYY-MM-DD HH:mm:ss');
+    }
   }
   ,deletedAt: {
-      field: 'deleted_at'
-      ,type: DataTypes.DATE
+    field: 'deleted_at',
+    type: DataTypes.DATE,
+    get() {
+      const val = this.getDataValue('createdAt');
+      if(!val) {
+        return null;
+      }
+      return dateFormatter(val, 'YYYY-MM-DD HH:mm:ss', 'YYYY-MM-DD HH:mm:ss');
+    }
   }
 }
 
 const options = {
-  tableName: 'Forecasts',
+  tableName: 'forecasts',
   timestamps: true,
   paranoid: true,
 }
@@ -80,7 +102,7 @@ const options = {
 const Forecasts = {
   init: sequelize => {
     const defineForecasts = sequelize.define(
-      'Forecasts',
+      'Forecast',
       attributes,
       options
     );

@@ -11,12 +11,12 @@ import getUnityAirEnvrnIdexSnstiveAboveMsrstnListValidator from '../validations/
 import getCtprvnRltmMesureDnstyValidator from '../validations/arpltnInforInqireSvc/getCtprvnRltmMesureDnsty.validator.js';
 import getMinuDustFrcstDspthValidator from '../validations/arpltnInforInqireSvc/getMinuDustFrcstDspth.validator.js';
 import getMinuDustWeekFrcstDspthValidator from '../validations/arpltnInforInqireSvc/getMinuDustWeekFrcstDspth.validator.js';
-import { getMsrstnAcctoRltmMesureDnsty } from '../controllers/arpltnInforInqireSvc.controller.js';
+import { ctprvnRltmMesureDnsty, msrstnAcctoRltmMesureDnsty } from '../controllers/arpltnInforInqireSvc.controller.js';
 
 const router = express.Router();
 
 // 측정소별 실시간 측정정보 조회
-router.get('/getMsrstnAcctoRltmMesureDnsty', getMsrstnAcctoRltmMesureDnstyValidator, validationHandler, getMsrstnAcctoRltmMesureDnsty);
+router.get('/getMsrstnAcctoRltmMesureDnsty', getMsrstnAcctoRltmMesureDnstyValidator, validationHandler, msrstnAcctoRltmMesureDnsty);
 
 // 통합대기환경지수 나쁨 이상 측정소 목록조회
 router.get('/getUnityAirEnvrnIdexSnstiveAboveMsrstnList', getUnityAirEnvrnIdexSnstiveAboveMsrstnListValidator, validationHandler, (req, res) => {
@@ -24,9 +24,7 @@ router.get('/getUnityAirEnvrnIdexSnstiveAboveMsrstnList', getUnityAirEnvrnIdexSn
 });
 
 // 시도별 실시간 측정정보 조회
-router.get('/getCtprvnRltmMesureDnsty', getCtprvnRltmMesureDnstyValidator, validationHandler, (req, res) => {
-  res.send('getCtprvnRltmMesureDnsty');
-});
+router.get('/getCtprvnRltmMesureDnsty', getCtprvnRltmMesureDnstyValidator, validationHandler, ctprvnRltmMesureDnsty);
 
 // 대기질 예보통보 조회
 router.get('/getMinuDustFrcstDspth', getMinuDustFrcstDspthValidator, validationHandler, (req, res) => {

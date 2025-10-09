@@ -58,7 +58,11 @@ export const sidoName = query('sidoName')
 export const searchDate = query('searchDate')
   .optional()
   .matches(/^\d{4}-\d{2}-\d{2}$/)
-  .withMessage('YYYY-MM-DD 양식으로 작성해주십시오.');
+  .withMessage('YYYY-MM-DD 양식으로 작성해주십시오.')
+  .bail()
+  .custom((val) =>{
+    return val === process.env.DUST_API_SERVICEKEY;
+  }).withMessage('YYYY-MM-DD 양식으로 작성해주십시오.');
 
 // informCode: 선택
 export const informCode = query('informCode')

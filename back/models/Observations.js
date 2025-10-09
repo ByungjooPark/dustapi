@@ -5,6 +5,7 @@
  */
 
 import { DataTypes } from "sequelize";
+import { dateFormatter } from "../utils/dateFormatter.util.js";
 
 const attributes = {
   id: {
@@ -25,7 +26,15 @@ const attributes = {
     field: 'data_time',
     type: DataTypes.STRING(20),
     allowNull: false,
-    comment: '측정일시 (YYYY-MM-DD HH:MM)',
+    comment: '측정일시 (YYYY-MM-DD HH:mm)',
+    get() {
+      const val = this.getDataValue('dataTime');
+      if(!val) {
+        return null;
+      }
+      
+      return dateFormatter(val, 'YYYY-MM-DD HH:mm:ss', 'YYYY-MM-DD HH:mm');
+    }
   },
   so2Value: {
     field: 'so2_value',
@@ -178,21 +187,42 @@ const attributes = {
     comment: 'PM2.5 측정자료 상태정보',
   },
   createdAt: {
-      field: 'created_at'
-      ,type: DataTypes.DATE
+    field: 'created_at',
+    type: DataTypes.DATE,
+    get() {
+      const val = this.getDataValue('createdAt');
+      if(!val) {
+        return null;
+      }
+      return dateFormatter(val, 'YYYY-MM-DD HH:mm:ss', 'YYYY-MM-DD HH:mm:ss');
+    }
   }
   ,updatedAt: {
-      field: 'updated_at'
-      ,type: DataTypes.DATE
+    field: 'updated_at',
+    type: DataTypes.DATE,
+    get() {
+      const val = this.getDataValue('createdAt');
+      if(!val) {
+        return null;
+      }
+      return dateFormatter(val, 'YYYY-MM-DD HH:mm:ss', 'YYYY-MM-DD HH:mm:ss');
+    }
   }
   ,deletedAt: {
-      field: 'deleted_at'
-      ,type: DataTypes.DATE
+    field: 'deleted_at',
+    type: DataTypes.DATE,
+    get() {
+      const val = this.getDataValue('createdAt');
+      if(!val) {
+        return null;
+      }
+      return dateFormatter(val, 'YYYY-MM-DD HH:mm:ss', 'YYYY-MM-DD HH:mm:ss');
+    }
   }
 }
 
 const options = {
-  tableName: 'Observations',
+  tableName: 'observations',
   timestamps: true,
   paranoid: true,
 }
@@ -200,7 +230,7 @@ const options = {
 const Observations = {
   init: sequelize => {
     const defineObservations = sequelize.define(
-      'Observations',
+      'Observation',
       attributes,
       options
     );
@@ -211,6 +241,10 @@ const Observations = {
     }
 
     return defineObservations;
+  },
+  associate: (db) => {
+    // Stations 1:n
+    db.Observation.belongsTo(db.Station, {targetKey: 'stationCode', foreignKey: 'stationCode'});
   }
 }
 

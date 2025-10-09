@@ -5,6 +5,7 @@
  */
 
 import { DataTypes } from "sequelize";
+import { dateFormatter } from "../utils/dateFormatter.util.js";
 
 const attributes = {
   stationCode: {
@@ -52,21 +53,42 @@ const attributes = {
     comment: '측정망 정보',
   },
   createdAt: {
-      field: 'created_at'
-      ,type: DataTypes.DATE
+    field: 'created_at',
+    type: DataTypes.DATE,
+    get() {
+      const val = this.getDataValue('createdAt');
+      if(!val) {
+        return null;
+      }
+      return dateFormatter(val, 'YYYY-MM-DD HH:mm:ss', 'YYYY-MM-DD HH:mm:ss');
+    }
   }
   ,updatedAt: {
-      field: 'updated_at'
-      ,type: DataTypes.DATE
+    field: 'updated_at',
+    type: DataTypes.DATE,
+    get() {
+      const val = this.getDataValue('createdAt');
+      if(!val) {
+        return null;
+      }
+      return dateFormatter(val, 'YYYY-MM-DD HH:mm:ss', 'YYYY-MM-DD HH:mm:ss');
+    }
   }
   ,deletedAt: {
-      field: 'deleted_at'
-      ,type: DataTypes.DATE
+    field: 'deleted_at',
+    type: DataTypes.DATE,
+    get() {
+      const val = this.getDataValue('createdAt');
+      if(!val) {
+        return null;
+      }
+      return dateFormatter(val, 'YYYY-MM-DD HH:mm:ss', 'YYYY-MM-DD HH:mm:ss');
+    }
   }
 }
 
 const options = {
-  tableName: 'Stations',
+  tableName: 'stations',
   timestamps: true,
   paranoid: true,
 }
@@ -74,7 +96,7 @@ const options = {
 const Stations = {
   init: sequelize => {
     const defineStations = sequelize.define(
-      'Stations',
+      'Station',
       attributes,
       options
     );
@@ -85,6 +107,9 @@ const Stations = {
     }
 
     return defineStations;
+  },
+  associate: db => {
+    db.Station.hasMany(db.Observation, {sourceKey: 'stationCode', foreignKey: 'stationCode'});
   }
 }
 

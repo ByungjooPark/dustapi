@@ -5,6 +5,7 @@
  */
 
 import { DataTypes } from "sequelize";
+import { dateFormatter } from "../utils/dateFormatter.util.js";
 
 const attributes = {
   id: {
@@ -34,21 +35,42 @@ const attributes = {
     comment: '행정 구역명',
   },
   createdAt: {
-      field: 'created_at'
-      ,type: DataTypes.DATE
+    field: 'created_at',
+    type: DataTypes.DATE,
+    get() {
+      const val = this.getDataValue('createdAt');
+      if(!val) {
+        return null;
+      }
+      return dateFormatter(val, 'YYYY-MM-DD HH:mm:ss', 'YYYY-MM-DD HH:mm:ss');
+    }
   }
   ,updatedAt: {
-      field: 'updated_at'
-      ,type: DataTypes.DATE
+    field: 'updated_at',
+    type: DataTypes.DATE,
+    get() {
+      const val = this.getDataValue('createdAt');
+      if(!val) {
+        return null;
+      }
+      return dateFormatter(val, 'YYYY-MM-DD HH:mm:ss', 'YYYY-MM-DD HH:mm:ss');
+    }
   }
   ,deletedAt: {
-      field: 'deleted_at'
-      ,type: DataTypes.DATE
+    field: 'deleted_at',
+    type: DataTypes.DATE,
+    get() {
+      const val = this.getDataValue('createdAt');
+      if(!val) {
+        return null;
+      }
+      return dateFormatter(val, 'YYYY-MM-DD HH:mm:ss', 'YYYY-MM-DD HH:mm:ss');
+    }
   }
 }
 
 const options = {
-  tableName: 'Locations',
+  tableName: 'locations',
   timestamps: true,
   paranoid: true,
 }
@@ -56,7 +78,7 @@ const options = {
 const Locations = {
   init: sequelize => {
     const defineLocations = sequelize.define(
-      'Locations',
+      'Location',
       attributes,
       options
     );

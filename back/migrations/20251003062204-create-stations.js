@@ -1,5 +1,5 @@
 /**
- * @file models/20251003062204-create-stations.js
+ * @file migrations/20251003062204-create-stations.js
  * @description stations 테이블 생성
  * 251007 v1.0 meerkat
  */

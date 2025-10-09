@@ -1,23 +1,3 @@
-npm i express express-validator dotenv sequelize sequelize-cli mysql2 cookie-parser cors axios
+npm i express express-validator dotenv sequelize sequelize-cli mysql2 cookie-parser cors axios dayjs
 
 npm i -D nodemon
-
-// ---------------------------------------
-
-※ 버전(ver) 항목설명
-- 버전을 포함하지 않고 호출할 경우 : PM2.5 데이터가 포함되지 않은 원래 오퍼레이션 결과 표출.
-- 버전 1.0을 호출할 경우 : PM2.5 데이터가 포함된 결과 표출.
-- 버전 1.1을 호출할 경우 : PM10, PM2.5 24시간 예측이동 평균데이터가 포함된 결과 표출.
-- 버전 1.2을 호출할 경우 : 측정망 정보 데이터가 포함된 결과 표출.
-- 버전 1.3을 호출할 경우 : PM10, PM2.5 1시간 등급 자료가 포함된 결과 표출
-- 버전 1.4을 호출할 경우 : 측정소명, 측정소 코드 정보가 포함된 결과 표출
-- 버전 1.5을 호출할 경우 : 측정값 소수점 아래 자리 수 확대 (CO : 1 → 2, O3/SO2/NO2 : 3 → 4)
-
-
-// ------------------ 남은 할일 ------------------
-모델 - 완
-시더 - 완 (향후 필요에 따라 추가 작성 필요)
-더미데이터 생성 - 완 (향후 시더 추가에 따른 생성 필요)
-controller - 작업중
-service - 작업중
-repository - 작업중
