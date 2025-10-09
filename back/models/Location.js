@@ -1,6 +1,6 @@
 /**
- * @file models/ForecastImages.js
- * @description ForecastImages 모델 파일
+ * @file models/Location.js
+ * @description Location 모델 파일
  * 251007 v1.0 meerkat
  */
 
@@ -13,26 +13,26 @@ const attributes = {
     type: DataTypes.BIGINT.UNSIGNED,
     primaryKey: true,
     allowNull: false,
-    autoIncrement: true,
-    comment: '예보 이미지 고유 ID',
+    autoIncrement: false,
+    comment: '권역 고유 ID',
   },
-  forecastId: {
-    field: 'forecast_id',
-    type: DataTypes.BIGINT.UNSIGNED,
+  districtName: {
+    field: 'district_name',
+    type: DataTypes.STRING(100),
     allowNull: false,
-    comment: '예보 ID (FK -> forecasts.id)',
+    comment: '발령 지역명',
   },
-  position: {
-    field: 'position',
-    type: DataTypes.BIGINT,
+  moveName: {
+    field: 'move_name',
+    type: DataTypes.STRING(100),
     allowNull: false,
-    comment: '이미지 순번 (1~9)',
+    comment: '발령 권역명',
   },
-  imageUrl: {
-    field: 'image_url',
-    type: DataTypes.STRING(600),
+  regionName: {
+    field: 'region_name',
+    type: DataTypes.STRING(200),
     allowNull: false,
-    comment: '이미지 URL',
+    comment: '행정 구역명',
   },
   createdAt: {
     field: 'created_at',
@@ -70,26 +70,26 @@ const attributes = {
 }
 
 const options = {
-  tableName: 'forecast_images',
+  tableName: 'locations',
   timestamps: true,
   paranoid: true,
 }
 
-const ForecastImages = {
+const Location = {
   init: sequelize => {
-    const defineForecastImages = sequelize.define(
-      'ForecastImage',
+    const defineLocations = sequelize.define(
+      'Location',
       attributes,
       options
     );
 
-    defineForecastImages.prototype.toJSON = function() {
+    defineLocations.prototype.toJSON = function() {
       const attributes = this.get();
       return attributes;
     }
 
-    return defineForecastImages;
+    return defineLocations;
   }
 }
 
-export default ForecastImages;
+export default Location;

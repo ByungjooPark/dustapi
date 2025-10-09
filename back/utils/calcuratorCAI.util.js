@@ -95,12 +95,12 @@ export function calcurationAIInfo(grade, bplo, bphi, cp) {
  *
  * @param {string} code - 오염물질 코드
  * @param {import("../types/utils/calcuratorCAI.util.type").StandardGradeInfoList} standardGradeInfoList - 기준 등급 정보 리스트
- * @param {string} val - 측정값 (빈 문자열일 경우 null 반환)
+ * @param {number|null} val - 측정값 (빈 문자열일 경우 null 반환)
  * @returns {import("../types/utils/calcuratorCAI.util.type").GradeInfo|null} 등급 계산 결과
  */
 export function generateGradeInfo(code, standardGradeInfoList, val) {
   try {
-    if(val === '') {
+    if(val === null) {
       return null;
     }
     const floatVal = parseFloat(val);
@@ -108,7 +108,7 @@ export function generateGradeInfo(code, standardGradeInfoList, val) {
   
     return {
       code: code,
-      val: val,
+      val: floatVal,
       grade: gradeInfo.grade,
       indexScore: calcurationAIInfo(gradeInfo.grade, gradeInfo.bplo, gradeInfo.bphi, floatVal)
     }
@@ -120,7 +120,7 @@ export function generateGradeInfo(code, standardGradeInfoList, val) {
 
 /**
  * SO2 등급 정보 생성
- * @param {string} param - 측정값
+ * @param {number|null} param - 측정값
  * @returns {import("../types/utils/calcuratorCAI.util.type").GradeInfo|null} 등급 계산 결과
  */
 export function generateGradeInfoSo2(param) {
@@ -137,7 +137,7 @@ export function generateGradeInfoSo2(param) {
 
 /**
  * CO 등급 정보 생성
- * @param {string} param - 측정값
+ * @param {number|null} param - 측정값
  * @returns {import("../types/utils/calcuratorCAI.util.type").GradeInfo|null} 등급 계산 결과
  */
 export function generateGradeInfoCo(param) {
@@ -154,7 +154,7 @@ export function generateGradeInfoCo(param) {
 
 /**
  * O3 등급 정보 생성
- * @param {string} param - 측정값
+ * @param {number|null} param - 측정값
  * @returns {import("../types/utils/calcuratorCAI.util.type").GradeInfo|null} 등급 계산 결과
  */
 export function generateGradeInfoO3(param) {
@@ -171,7 +171,7 @@ export function generateGradeInfoO3(param) {
 
 /**
  * NO2 등급 정보 생성
- * @param {string} param - 측정값
+ * @param {number|null} param - 측정값
  * @returns {import("../types/utils/calcuratorCAI.util.type").GradeInfo|null} 등급 계산 결과
  */
 export function generateGradeInfoNo2(param) {
@@ -188,7 +188,7 @@ export function generateGradeInfoNo2(param) {
 
 /**
  * PM10 등급 정보 생성
- * @param {string} param - 측정값
+ * @param {number|null} param - 측정값
  * @returns {import("../types/utils/calcuratorCAI.util.type").GradeInfo|null} 등급 계산 결과
  */
 export function generateGradeInfoPm10(param) {
@@ -205,7 +205,7 @@ export function generateGradeInfoPm10(param) {
 
 /**
  * PM2.5 등급 정보 생성
- * @param {string} param - 측정값
+ * @param {number|null} param - 측정값
  * @returns {import("../types/utils/calcuratorCAI.util.type").GradeInfo|null} 등급 계산 결과
  */
 export function generateGradeInfoPm25(param) {
@@ -222,13 +222,13 @@ export function generateGradeInfoPm25(param) {
 
 /**
  * 
- * @param {Array<string>} list - 측정치가 들어있는 배열
- * @returns {string} avg 측정치의 평균값 문자열 (list가 빈배열일 시 빈문자열)
+ * @param {Array<string>|Array<number>} list - 측정치가 들어있는 배열
+ * @returns {number} avg 측정치의 평균값 문자열 (list가 빈배열일 시 빈문자열)
  */
 export function calculationAvgValue(list) {
   if(list.length < 1) {
-    return '';
+    return null;
   }
 
-  return Math.round((list.reduce((a, b) => parseFloat(a) + parseFloat(b), 0) / list.length)).toString();
+  return Math.round((list.reduce((a, b) => parseFloat(a) + parseFloat(b), 0) / list.length));
 }

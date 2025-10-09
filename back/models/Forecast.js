@@ -1,6 +1,6 @@
 /**
- * @file models/Forecasts.js
- * @description Forecasts 모델 파일
+ * @file models/Forecast.js
+ * @description Forecast 모델 파일
  * 251007 v1.0 meerkat
  */
 
@@ -99,7 +99,7 @@ const options = {
   paranoid: true,
 }
 
-const Forecasts = {
+const Forecast = {
   init: sequelize => {
     const defineForecasts = sequelize.define(
       'Forecast',
@@ -116,4 +116,4 @@ const Forecasts = {
   }
 }
 
-export default Forecasts;
+export default Forecast;

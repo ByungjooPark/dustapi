@@ -1,10 +1,10 @@
 import './configs/envConfig.js';
 import { Sequelize } from 'sequelize';
-import Stations from './models/Stations.js';
-import ForecastImages from './models/ForecastImages.js';
-import Forecasts from './models/Forecasts.js';
-import Locations from './models/Locations.js';
-import Observations from './models/Observations.js';
+import Station from './models/Station.js';
+import ForecastImage from './models/ForecastImage.js';
+import Forecast from './models/Forecast.js';
+import Location from './models/Location.js';
+import Observation from './models/Observation.js';
 
 const db = {}; // 생성할 db 인스턴스 저장용
 
@@ -34,17 +34,17 @@ const sequelize = new Sequelize(
 db.sequelize = sequelize; // 생성한 sequelize 인스턴스 db에 저장
 
 // 모델 초기화
-db.Station = Stations.init(sequelize);
-db.ForecastImage = ForecastImages.init(sequelize);
-db.Forecast = Forecasts.init(sequelize);
-db.Location = Locations.init(sequelize);
-db.Observation = Observations.init(sequelize);
+db.Station = Station.init(sequelize);
+db.ForecastImage = ForecastImage.init(sequelize);
+db.Forecast = Forecast.init(sequelize);
+db.Location = Location.init(sequelize);
+db.Observation = Observation.init(sequelize);
 
 // 모델 관계 설정
-Stations.associate(db);
-// ForecastImages.associate(db);
-// Forecasts.associate(db);
-// Locations.associate(db);
-Observations.associate(db);
+Station.associate(db);
+// ForecastImage.associate(db);
+// Forecast.associate(db);
+// Location.associate(db);
+Observation.associate(db);
 
 export default db;

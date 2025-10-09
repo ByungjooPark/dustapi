@@ -6,7 +6,7 @@
 
 import dayjs from "dayjs";
 import { calculationLimitAndOffset, PAGINATION_POLICY_LIMIT, PAGINATION_POLICY_PAGE_NO } from "../configs/paginationPolicy.config.js";
-import { paginationObservations } from "../repositories/Observations.repository.js";
+import { paginationObservations } from "../repositories/observation.repository.js";
 import { getStartAndEndDateUsingDataTerm } from "../utils/dateFormatter.util.js";
 
 /**

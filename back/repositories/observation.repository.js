@@ -1,6 +1,6 @@
 /**
- * @file services/arpltnInforInqireSvc.repository.js
- * @description arpltnInforInqireSvc repository 파일
+ * @file repositories/observation.repository.js
+ * @description observation repository 파일
  * 251008 v1.0 meerkat
  */
 import { Op } from 'sequelize';

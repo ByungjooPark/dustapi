@@ -1,6 +1,6 @@
 /**
- * @file models/Locations.js
- * @description Locations 모델 파일
+ * @file models/Station.js
+ * @description Station 모델 파일
  * 251007 v1.0 meerkat
  */
 
@@ -8,31 +8,49 @@ import { DataTypes } from "sequelize";
 import { dateFormatter } from "../utils/dateFormatter.util.js";
 
 const attributes = {
-  id: {
-    field: 'id',
+  stationCode: {
+    field: 'station_code',
     type: DataTypes.BIGINT.UNSIGNED,
     primaryKey: true,
     allowNull: false,
-    autoIncrement: false,
-    comment: '권역 고유 ID',
+    autoIncrement: true,
+    comment: '측정소 코드 (PK)',
   },
-  districtName: {
-    field: 'district_name',
-    type: DataTypes.STRING(100),
+  locationId: {
+    field: 'location_id',
+    type: DataTypes.BIGINT.UNSIGNED,
     allowNull: false,
-    comment: '발령 지역명',
+    comment: '권역 고유 ID (FK -> location.id)',
   },
-  moveName: {
-    field: 'move_name',
-    type: DataTypes.STRING(100),
+  stationName: {
+    field: 'station_name',
+    type: DataTypes.STRING(30),
     allowNull: false,
-    comment: '발령 권역명',
+    comment: '측정소명',
   },
-  regionName: {
-    field: 'region_name',
+  address: {
+    field: 'address',
     type: DataTypes.STRING(200),
     allowNull: false,
-    comment: '행정 구역명',
+    comment: '측정소 주소',
+  },
+  sidoFullname: {
+    field: 'sido_fullname',
+    type: DataTypes.STRING(20),
+    allowNull: false,
+    comment: '시도명전체',
+  },
+  sidoName: {
+    field: 'sido_name',
+    type: DataTypes.STRING(10),
+    allowNull: false,
+    comment: '시도명',
+  },
+  mangName: {
+    field: 'mang_name',
+    type: DataTypes.STRING(10),
+    allowNull: false,
+    comment: '측정망 정보',
   },
   createdAt: {
     field: 'created_at',
@@ -70,26 +88,29 @@ const attributes = {
 }
 
 const options = {
-  tableName: 'locations',
+  tableName: 'stations',
   timestamps: true,
   paranoid: true,
 }
 
-const Locations = {
+const Station = {
   init: sequelize => {
-    const defineLocations = sequelize.define(
-      'Location',
+    const defineStations = sequelize.define(
+      'Station',
       attributes,
       options
     );
 
-    defineLocations.prototype.toJSON = function() {
+    defineStations.prototype.toJSON = function() {
       const attributes = this.get();
       return attributes;
     }
 
-    return defineLocations;
+    return defineStations;
+  },
+  associate: db => {
+    db.Station.hasMany(db.Observation, {sourceKey: 'stationCode', foreignKey: 'stationCode'});
   }
 }
 
-export default Locations;
+export default Station;

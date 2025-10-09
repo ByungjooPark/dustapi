@@ -4,7 +4,6 @@
  * 251007 v1.0 meerkat
  */
 
-'use strict';
 import locations from './base/processing/locations.js';
 
 /** @type {import('sequelize-cli').Migration} */

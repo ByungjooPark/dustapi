@@ -4,12 +4,12 @@
  * 251007 v1.0 meerkat
  */
 
-'use strict';
 import fs from 'fs';
 import path from 'path';
 import readline from 'readline';
 import { dateFormatToYYYYMMDDHHmiSSWith24HourToNextDay00Hour } from '../utils/dateFormatter.util.js';
 import { calculationAvgValue, generateCAIInfo, generateGradeInfoCo, generateGradeInfoNo2, generateGradeInfoO3, generateGradeInfoPm10, generateGradeInfoPm25, generateGradeInfoSo2 } from '../utils/calcuratorCAI.util.js';
+import { subDecimalPlace } from '../utils/dataFormatter.util.js';
 
 /** @type {import('sequelize-cli').Migration} */
 export default {
@@ -49,7 +49,16 @@ export default {
 
           cnt++;
           const lineArr = line.split('\t');
-          const [stationCode, dataTime, so2Value = '', coValue = '', o3Value = '', no2Value = '', pm10Value = '', pm25Value = ''] = lineArr;
+          const castLineArr = lineArr.map((val, idx) => {
+            if(idx < 2) {
+              return val;
+            } else if([2, 3, 4, 5].includes(idx)) {
+              return val ? parseFloat(val) : null;
+            } else if([6, 7].includes(idx)) {
+              return val ? parseInt(val) : null;
+            }
+          });
+          const [stationCode, dataTime, so2Value, coValue, o3Value, no2Value, pm10Value, pm25Value] = castLineArr;
 
           try {
   
@@ -58,6 +67,7 @@ export default {
               execStation = stationCode;
             }
             
+            // station 바뀌면 pmAvgList 초기화
             if(execStation !== stationCode) {
               execStation = stationCode;
               pmAvgList.pm10AvgList = [];
@@ -72,7 +82,7 @@ export default {
             }
   
             // Row 데이터 생성
-            resultData.push(generateDataObject(lineArr, pmAvgList));
+            resultData.push(generateDataObject(castLineArr, pmAvgList));
   
             if(cnt >= maxRowCnt) {
               accCnt += cnt;
@@ -82,7 +92,7 @@ export default {
               resultData = [];
             }
           } catch(e) {
-            console.error(cnt, line, lineArr, resultData[cnt - 2]);
+            console.error(cnt, line, castLineArr, resultData[cnt - 2]);
             throw e;
           }
         }
@@ -105,7 +115,7 @@ export default {
 };
 
 function generateDataObject(lineArr, pmAvgList) {
-  const [stationCode, dataTime, so2Value = '', coValue = '', o3Value = '', no2Value = '', pm10Value = '', pm25Value = ''] = lineArr;
+  const [stationCode, dataTime, so2Value, coValue, o3Value, no2Value, pm10Value, pm25Value] = lineArr;
   const dateTimeFormat = dateFormatToYYYYMMDDHHmiSSWith24HourToNextDay00Hour(dataTime);
   const {pm10AvgList, pm25AvgList} = pmAvgList;
   const pm10Avg = calculationAvgValue(pm10AvgList);
@@ -120,19 +130,21 @@ function generateDataObject(lineArr, pmAvgList) {
   const pm10AvgGradeInfo = generateGradeInfoPm10(pm10Avg);
   const pm25AvgGradeInfo = generateGradeInfoPm25(pm25Avg);
   const caiInfo = generateCAIInfo(so2GradeInfo, coGradeInfo, o3GradeInfo, no2GradeInfo, pm10GradeInfo, pm25GradeInfo);
+  const flagList = ['점검및교정', '장비점검', '자료이상', '통신장애'];
+  const flag = flagList[Math.floor(Math.random() * flagList.length)];
 
   return {
     station_code: stationCode,
     data_time: dateTimeFormat,
-    so2_value: so2Value,
-    co_value: coValue,
-    o3_value: o3Value,
-    no2_value: no2Value,
+    so2_value: subDecimalPlace(so2Value, 4),
+    co_value: subDecimalPlace(coValue, 4),
+    o3_value: subDecimalPlace(o3Value, 4),
+    no2_value: subDecimalPlace(no2Value, 4),
     pm10_value: pm10Value,
-    pm10_value_24: pm10Avg ? pm10Avg.toString() : '',
+    pm10_value_24: pm10Avg,
     pm25_value: pm25Value,
-    pm25_value_24: pm25Avg ? pm25Avg.toString() : '',
-    khai_value: caiInfo.cai > 0 ? caiInfo.cai.toString() : '',
+    pm25_value_24: pm25Avg,
+    khai_value: caiInfo.cai > 0 ? parseInt(caiInfo.cai) : null,
     khai_code: caiInfo.code,
     khai_grade: caiInfo.cai > 0 ? caiInfo.grade.toString(): '',
     so2_grade: so2GradeInfo ? so2GradeInfo.grade.toString() : '',
@@ -143,12 +155,12 @@ function generateDataObject(lineArr, pmAvgList) {
     pm25_grade: pm25AvgGradeInfo ? pm25AvgGradeInfo.grade.toString() : '',
     pm10_grade_1h: pm10GradeInfo ? pm10GradeInfo.grade.toString() : '',
     pm25_grade_1h: pm25GradeInfo ? pm25GradeInfo.grade.toString() : '',
-    so2_flag: so2GradeInfo ? '' : '자료이상',
-    co_flag: coGradeInfo ? '' : '자료이상',
-    o3_flag: o3GradeInfo ? '' : '자료이상',
-    no2_flag: no2GradeInfo ? '' : '자료이상',
-    pm10_flag: pm10GradeInfo ? '' : '자료이상',
-    pm25_flag: pm25GradeInfo ? '' : '자료이상',
+    so2_flag: so2GradeInfo ? '' : flag,
+    co_flag: coGradeInfo ? '' : flag,
+    o3_flag: o3GradeInfo ? '' : flag,
+    no2_flag: no2GradeInfo ? '' : flag,
+    pm10_flag: pm10GradeInfo ? '' : flag,
+    pm25_flag: pm25GradeInfo ? '' : flag,
     created_at: date,
     updated_at: date
   }

@@ -1,6 +1,6 @@
 /**
- * @file models/Observations.js
- * @description Observations 모델 파일
+ * @file models/Observation.js
+ * @description Observation 모델 파일
  * 251007 v1.0 meerkat
  */
 
@@ -38,56 +38,56 @@ const attributes = {
   },
   so2Value: {
     field: 'so2_value',
-    type: DataTypes.STRING(10),
-    allowNull: false,
+    type: DataTypes.DECIMAL(10, 5),
+    allowNull: true,
     comment: '아황산가스 농도 (ppm)',
   },
   coValue: {
     field: 'co_value',
-    type: DataTypes.STRING(10),
-    allowNull: false,
+    type: DataTypes.DECIMAL(10, 5),
+    allowNull: true,
     comment: '일산화탄소 농도 (ppm)',
   },
   o3Value: {
     field: 'o3_value',
-    type: DataTypes.STRING(10),
-    allowNull: false,
+    type: DataTypes.DECIMAL(10, 5),
+    allowNull: true,
     comment: '오존 농도 (ppm)',
   },
   no2Value: {
     field: 'no2_value',
-    type: DataTypes.STRING(10),
-    allowNull: false,
+    type: DataTypes.DECIMAL(10, 5),
+    allowNull: true,
     comment: '이산화질소 농도 (ppm)',
   },
   pm10Value: {
     field: 'pm10_value',
-    type: DataTypes.STRING(10),
-    allowNull: false,
+    type: DataTypes.INTEGER,
+    allowNull: true,
     comment: '미세먼지(PM10) 농도 (㎍/㎥)',
   },
   pm10Value24: {
     field: 'pm10_value_24',
-    type: DataTypes.STRING(10),
-    allowNull: false,
+    type: DataTypes.INTEGER,
+    allowNull: true,
     comment: 'PM10 24시간예측 이동농도 (㎍/㎥)',
   },
   pm25Value: {
     field: 'pm25_value',
-    type: DataTypes.STRING(10),
-    allowNull: false,
+    type: DataTypes.INTEGER,
+    allowNull: true,
     comment: '미세먼지(PM2.5) 농도 (㎍/㎥)',
   },
   pm25Value24: {
     field: 'pm25_value_24',
-    type: DataTypes.STRING(10),
-    allowNull: false,
+    type: DataTypes.INTEGER,
+    allowNull: true,
     comment: 'PM2.5 24시간예측 이동농도 (㎍/㎥)',
   },
   khaiValue: {
     field: 'khai_value',
-    type: DataTypes.STRING(10),
-    allowNull: false,
+    type: DataTypes.INTEGER,
+    allowNull: true,
     comment: '통합대기환경지수',
   },
   khaiCode: {
@@ -227,7 +227,7 @@ const options = {
   paranoid: true,
 }
 
-const Observations = {
+const Observation = {
   init: sequelize => {
     const defineObservations = sequelize.define(
       'Observation',
@@ -248,4 +248,4 @@ const Observations = {
   }
 }
 
-export default Observations;
+export default Observation;
