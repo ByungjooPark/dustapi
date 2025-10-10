@@ -65,3 +65,32 @@ export const averageToDateByDistrict = async (t = null, params) => {
     raw: true,
   });
 }
+
+export const averageToDateByLocation = async (t = null, params) => {
+  const {locId, startDate, endDate} = params;
+
+  return await Observation.findAll({
+    attributes: [
+      [Sequelize.fn('AVG', Sequelize.col('Observation.o3_value')), 'avgO3'],
+      [Sequelize.fn('AVG', Sequelize.col('Observation.pm10_value')), 'avgPm10'],
+      [Sequelize.fn('AVG', Sequelize.col('Observation.pm25_value')), 'avgPm25'],
+    ],
+    include: [
+      {
+        model: Station,
+        required: true,
+        attributes: [],
+        where: {
+          locationId: locId
+        }
+      }
+    ],
+    where: {
+      dataTime: {
+        [Op.in]: [startDate, endDate],
+      }
+    },
+    group: ['Observation.data_time'],
+    raw: true,
+  });
+}

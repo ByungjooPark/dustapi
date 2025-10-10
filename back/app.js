@@ -17,6 +17,18 @@ const app = express(); // Express 애플리케이션 인스턴스를 생성
 app.use('/B552584/ArpltnInforInqireSvc', routerArpltnInforInqireSvc);
 app.use('/B552584/UlfptcaAlarmInqireSvc', reuterUlfptcaAlarmInqireSvc);
 
+// TODO: test
+import { averageToDateByLocation } from './repositories/Observation.repository.js';
+app.use('/meerkat/test', async (req, res, next) => {
+  let data = {
+    locId: 2,
+    startDate: '2025-04-19 12:00:00',
+    endDate: '2025-04-19 21:00:00',
+  };
+  let result = await averageToDateByLocation(null, data);
+  res.send(result);
+});
+
 // Not Found
 app.use((req, res, next) => {
   next(commonError(NOT_FOUND_ERROR, 'NOT FOUND ERROR'));

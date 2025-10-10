@@ -5,6 +5,7 @@ import ForecastImage from './models/ForecastImage.js';
 import Forecast from './models/Forecast.js';
 import Location from './models/Location.js';
 import Observation from './models/Observation.js';
+import ForecastAlert from './models/ForecastAlert.js';
 
 const db = {}; // 생성할 db 인스턴스 저장용
 
@@ -36,6 +37,7 @@ db.sequelize = sequelize; // 생성한 sequelize 인스턴스 db에 저장
 // 모델 초기화
 db.Station = Station.init(sequelize);
 db.ForecastImage = ForecastImage.init(sequelize);
+db.ForecastAlert = ForecastAlert.init(sequelize);
 db.Forecast = Forecast.init(sequelize);
 db.Location = Location.init(sequelize);
 db.Observation = Observation.init(sequelize);
