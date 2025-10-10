@@ -232,3 +232,21 @@ export function calculationAvgValue(list) {
 
   return Math.round((list.reduce((a, b) => parseFloat(a) + parseFloat(b), 0) / list.length));
 }
+
+/**
+ * 
+ * @param {number} grade - 등급
+ * @returns {string} 등급 한글
+ */
+export function convertGradeToKorean(grade) {
+  switch (grade) {
+    case 1:
+      return '좋음';
+    case 2:
+      return '보통';
+    case 3:
+      return '나쁨';
+    default:
+      return '매우나쁨';
+  }
+}

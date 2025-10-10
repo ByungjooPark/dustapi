@@ -6,4 +6,16 @@
 import { Op } from 'sequelize';
 import db from '../db_index.js';
 
-const { sequelize, Forecast } = db;
+const { sequelize, Forecast, ForecastImage } = db;
+
+export const getAllForecast = async (t= null) => {
+  return await Forecast.findAll({
+    order: [
+      ['dataTime', 'ASC'],
+      ['id', 'ASC']
+    ],
+    include: [{
+      model: ForecastImage
+    }]
+  });
+}

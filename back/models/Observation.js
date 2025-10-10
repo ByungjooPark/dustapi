@@ -201,7 +201,7 @@ const attributes = {
     field: 'updated_at',
     type: DataTypes.DATE,
     get() {
-      const val = this.getDataValue('createdAt');
+      const val = this.getDataValue('updatedAt');
       if(!val) {
         return null;
       }
@@ -212,7 +212,7 @@ const attributes = {
     field: 'deleted_at',
     type: DataTypes.DATE,
     get() {
-      const val = this.getDataValue('createdAt');
+      const val = this.getDataValue('deletedAt');
       if(!val) {
         return null;
       }

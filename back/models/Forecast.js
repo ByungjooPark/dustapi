@@ -21,6 +21,13 @@ const attributes = {
     type: DataTypes.STRING(20),
     allowNull: false,
     comment: '통보시간 (YYYY-MM-DD HH:mi)',
+    get() {
+      const val = this.getDataValue('dataTime');
+      if(!val) {
+        return null;
+      }
+      return dateFormatter(val, 'YYYY-MM-DD HH:mm:ss', 'YYYY-MM-DD HH:mm:ss');
+    }
   },
   informCode: {
     field: 'inform_code',
@@ -42,7 +49,7 @@ const attributes = {
   },
   informGrade: {
     field: 'inform_grade',
-    type: DataTypes.STRING(100),
+    type: DataTypes.STRING(500),
     allowNull: false,
     comment: '예보등급',
   },
@@ -57,6 +64,13 @@ const attributes = {
     type: DataTypes.STRING(20),
     allowNull: false,
     comment: '예측통보시간(YYYY-MM-DD)',
+    get() {
+      const val = this.getDataValue('informDate');
+      if(!val) {
+        return null;
+      }
+      return dateFormatter(val, 'YYYY-MM-DD HH:mm:ss', 'YYYY-MM-DD');
+    }
   },
   createdAt: {
     field: 'created_at',
@@ -73,7 +87,7 @@ const attributes = {
     field: 'updated_at',
     type: DataTypes.DATE,
     get() {
-      const val = this.getDataValue('createdAt');
+      const val = this.getDataValue('updatedAt');
       if(!val) {
         return null;
       }
@@ -84,7 +98,7 @@ const attributes = {
     field: 'deleted_at',
     type: DataTypes.DATE,
     get() {
-      const val = this.getDataValue('createdAt');
+      const val = this.getDataValue('deletedAt');
       if(!val) {
         return null;
       }
@@ -113,6 +127,10 @@ const Forecast = {
     }
 
     return defineForecasts;
+  },
+  associate: (db) => {
+    // Stations 1:n
+    db.Forecast.hasMany(db.ForecastImage, {sourceKey: 'id', foreignKey: 'forecastId'});
   }
 }
 

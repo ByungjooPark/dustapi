@@ -41,7 +41,7 @@ export default {
         comment: '발생원인',
       },
       inform_grade: {
-        type: DataTypes.STRING(100),
+        type: DataTypes.STRING(500),
         allowNull: false,
         comment: '예보등급',
       },
