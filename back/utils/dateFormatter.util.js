@@ -8,8 +8,6 @@
 
 import dayjs from 'dayjs';
 import { dateTermList } from "../configs/fieldParams.config.js";
-import { commonError } from '../errors/common.error.js';
-import { SYSTEM_ERROR } from '../configs/responseCode.config.js';
 
 /**
  * 데이트 포맷(24시일 경우 다음날 00시로 포맷)
@@ -79,9 +77,6 @@ export function getStartAndEndDateUsingDataTerm(dataTerm) {
  * @returns {string} 변경 포맷의 문자열
  */
 export function dateFormatter(val, fromFormat, toFormat) {
-  if(!val || !fromFormat || !toFormat) {
-    throw commonError(SYSTEM_ERROR, `dateFormatter.util/dateFormatter: [${val}] [${fromFormat}] [${toFormat}]`);
-  }
   return dayjs(val, fromFormat).format(toFormat);
 }
 

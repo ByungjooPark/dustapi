@@ -7,3 +7,4 @@ public
 **/base/alert
 envs
 .env*
+storage

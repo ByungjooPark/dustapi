@@ -8,11 +8,10 @@ import express from 'express';
 import getUlfptcaAlarmInfoValidator from '../validations/ulfptcaAlarmInqireSvc/getUlfptcaAlarmInfo.validator.js';
 import validationHandler from '../validations/validationHandler.js';
 import { ulfptcaAlarmInfo } from '../controllers/ulfptcaAlarmInqireSvc.controller.js';
-import { createProcessTimer } from '../middlewares/common.middleware.js';
 
 const router = express.Router();
 
 // 미세먼지 경보 현황 정보 조회
-router.get('/getUlfptcaAlarmInfo', createProcessTimer('/getTMStdrCrdnt'), getUlfptcaAlarmInfoValidator, validationHandler, ulfptcaAlarmInfo);
+router.get('/getUlfptcaAlarmInfo', getUlfptcaAlarmInfoValidator, validationHandler, ulfptcaAlarmInfo);
 
 export default router;

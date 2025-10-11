@@ -5,7 +5,7 @@
  */
 
 import axios from 'axios';
-import '../../../configs/envConfig.js';
+import '../../../configs/env.config.js';
 import alternativeAddr from './alternativeAddr.js';
 import path from 'path';
 import fs from 'fs';

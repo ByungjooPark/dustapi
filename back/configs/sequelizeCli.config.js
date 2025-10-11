@@ -4,7 +4,7 @@
  * 251007 v1.0 meerkat
  */
 
-import './envConfig.js';
+import './env.config.js';
 
 const config = {
   "development": {

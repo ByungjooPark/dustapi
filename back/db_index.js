@@ -1,4 +1,4 @@
-import './configs/envConfig.js';
+import './configs/env.config.js';
 import { Sequelize } from 'sequelize';
 import Station from './models/Station.js';
 import ForecastImage from './models/ForecastImage.js';

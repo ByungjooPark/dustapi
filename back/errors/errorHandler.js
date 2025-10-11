@@ -4,16 +4,23 @@
  * 251007 v1.0 meerkat
  */
 
-import { SYSTEM_ERROR } from "../configs/responseCode.config.js";
+import { BaseError } from "sequelize";
+import { DB_ERROR, SYSTEM_ERROR } from "../configs/responseCode.config.js";
+import { logger } from "../configs/winston.config.js";
 
 /**
  * 모든 에러는 `err.codeInfo`프로퍼티를 포함하고 있을 것
  * `err.codeInfo`은 {import('../types/configs/responseCode.config.type.js').ResponseCodeConfig}
  */
 export default (err, req, res, next) => {
-  if(!err.codeInfo) {
+  // Sequelize 에러 처리
+  if(err instanceof BaseError) {
+    err.codeInfo = DB_ERROR;
+  } else {
     err.codeInfo = SYSTEM_ERROR;
   }
-  console.error(`${err.name}: ${err.message}`);
+  
+  logger.error(`${err.name}: ${err.message}\n${err.stack}`);
+
   res.status(err.codeInfo.status).send(err.codeInfo);
 }
