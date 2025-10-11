@@ -35,13 +35,18 @@ export const paginationForecast = async (t= null, params) => {
       ['informCode', 'ASC'],
       ['dataTime', 'ASC'],
     ],
-    include: [{
-      model: ForecastImage,
-      order: [
-        ['position', 'ASC'],
-      ]
-    }]
+    
   };
+
+  // 카운트 별도 획득 (1:n 관계라 findAndCountAll은 부정확)
+  const count = await Forecast.count(options, { transaction: t });
+
+  options.include = [{
+    model: ForecastImage,
+    order: [
+      ['position', 'ASC'],
+    ]
+  }];
 
   // 페이지네이션 설정(searchDate 있을 시 미설정)
   if(searchDate) {
@@ -49,7 +54,9 @@ export const paginationForecast = async (t= null, params) => {
     options.offset = offset;
   }
 
-  return await Forecast.findAndCountAll(options, { transaction: t });
+  const rows = await Forecast.findAll(options, { transaction: t });
+
+  return {count, rows};
 }
 
 /**
