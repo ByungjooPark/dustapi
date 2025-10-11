@@ -61,12 +61,12 @@ export default {
         comment: '측정망 정보 (도시대기, 도로변대기, 국가배경농고, 교외대기, 항만)',
       },
       tm_x: {
-        type: DataTypes.STRING(10),
+        type: DataTypes.STRING(13),
         allowNull: true,
         comment: 'TM방식 X좌표',
       },
       tm_y: {
-        type: DataTypes.STRING(10),
+        type: DataTypes.STRING(13),
         allowNull: true,
         comment: 'TM방식 y좌표',
       },

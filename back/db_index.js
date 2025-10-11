@@ -19,7 +19,7 @@ const sequelize = new Sequelize(
         ,port: parseInt(process.env.DB_MYSQL_PORT)          // 사용 DB Port
         ,dialect: process.env.DB_MYSQL_DIALECT              // 사용 DB 드라이버
         ,timezone: process.env.DB_MYSQL_TIMEZONE            // 타임존
-        ,logging: (process.env.DB_MYSQL_LOG_FLG === 'true')  // DB Loggin on/off
+        ,logging: process.env.DB_MYSQL_LOG_FLG === 'true' && console.log  // DB Loggin on/off
         ,dialectOptions: {
             dateStrings: true  // 문자열로 날짜 받기
         }

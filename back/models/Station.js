@@ -52,6 +52,18 @@ const attributes = {
     allowNull: false,
     comment: '측정망 정보',
   },
+  tmX: {
+    field: 'tm_x',
+    type: DataTypes.STRING(13),
+    allowNull: true,
+    comment: 'TM방식 X좌표',
+  },
+  tmY: {
+    field: 'tm_y',
+    type: DataTypes.STRING(13),
+    allowNull: true,
+    comment: 'TM방식 y좌표',
+  },
   createdAt: {
     field: 'created_at',
     type: DataTypes.DATE,

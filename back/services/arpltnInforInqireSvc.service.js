@@ -8,6 +8,7 @@ import dayjs from "dayjs";
 import { calculationLimitAndOffset, PAGINATION_POLICY_LIMIT, PAGINATION_POLICY_PAGE_NO } from "../configs/paginationPolicy.config.js";
 import { paginationObservations } from "../repositories/observation.repository.js";
 import { getStartAndEndDateUsingDataTerm } from "../utils/dateFormatter.util.js";
+import { sidoNameList } from "../configs/fieldParams.config.js";
 
 /**
  * 측정소명과 측정데이터 기간(일,한달,3개월)으로 해당 측정소의 일반항목 측정정보를 제공하는 측정소별 실시간 측정정보조회
@@ -29,6 +30,7 @@ export const getMsrstnAcctoRltmMesureDnsty = async (req, res, next) => {
     startDate: startDate,
     endDate: endDate,
     stationName: stationName,
+    sidoName: null
   };
 
   // repository 호출
@@ -59,7 +61,8 @@ export const getCtprvnRltmMesureDnsty = async (req, res, next) => {
     offset: offset,
     startDate: now.subtract(1, 'hour').format('YYYY-MM-DD HH:mm:ss'),
     endDate: now.format('YYYY-MM-DD HH:mm:ss'),
-    sidoName: sidoName,
+    stationName: null,
+    sidoName: sidoName !== sidoNameList[0] ? sidoName : '',
   };
 
   // repository 호출
