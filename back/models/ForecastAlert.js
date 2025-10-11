@@ -27,6 +27,13 @@ const attributes = {
     type: DataTypes.DATE,
     allowNull: false,
     comment: '발령일',
+    get() {
+      const val = this.getDataValue('dataDate');
+      if(!val) {
+        return null;
+      }
+      return dateFormatter(val, 'YYYY-MM-DD HH:mm:ss', 'YYYY-MM-DD HH:mm:ss');
+    }
   },
   locationId: {
     field: 'location_id',
@@ -51,6 +58,13 @@ const attributes = {
     type: DataTypes.DATE,
     allowNull: false,
     comment: '발령일자',
+    get() {
+      const val = this.getDataValue('issueDate');
+      if(!val) {
+        return null;
+      }
+      return dateFormatter(val, 'YYYY-MM-DD HH:mm:ss', 'YYYY-MM-DD HH:mm:ss');
+    }
   },
   issueVal: {
     field: 'issue_val',
@@ -63,6 +77,13 @@ const attributes = {
     type: DataTypes.DATE,
     allowNull: false,
     comment: '해제일자',
+    get() {
+      const val = this.getDataValue('clearDate');
+      if(!val) {
+        return null;
+      }
+      return dateFormatter(val, 'YYYY-MM-DD HH:mm:ss', 'YYYY-MM-DD HH:mm:ss');
+    }
   },
   clearVal: {
     field: 'clear_val',

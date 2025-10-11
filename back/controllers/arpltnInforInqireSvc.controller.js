@@ -4,11 +4,13 @@
  * 251007 v1.0 meerkat
  */
 
+import dayjs from "dayjs";
 import { verList } from "../configs/fieldParams.config.js";
 import { SUCCESS } from "../configs/responseCode.config.js";
 import { createbaseResponseDTO } from "../dto/baseResponse.dto.js";
 import { getCtprvnRltmMesureDnsty, getMinuDustFrcstDspth, getMsrstnAcctoRltmMesureDnsty } from "../services/arpltnInforInqireSvc.service.js";
 import { subDecimalPlace } from "../utils/dataFormatter.util.js";
+import { dateFormatter } from "../utils/dateFormatter.util.js";
 
 /**
  * 대기오염정보 기술문서 - 상세기능 1 : 측정소별 실시간 측정정보 조회
@@ -208,7 +210,7 @@ export async function minuDustFrcstDspth(req, res, next) {
       const imageUrl9 = item.ForecastImages.find(fi => fi.position === 9).imageUrl;
 
       return {
-        dataTime: item.dataTime,
+        dataTime: `${dateFormatter(item.dataTime, 'YYYY-MM-DD HH:mm:ss', 'YYYY-MM-DD HH')}시 발표`,
         informCode: item.informCode,
         informOverall: item.informOverall,
         informCause: item.informCause,
@@ -223,13 +225,21 @@ export async function minuDustFrcstDspth(req, res, next) {
         imageUrl7: imageUrl7 ? `${process.env.AIRKOREA_IMAGE_URL}/${imageUrl7}` : '',
         imageUrl8: imageUrl8 ? `${process.env.AIRKOREA_IMAGE_URL}/${imageUrl8}` : '',
         imageUrl9: imageUrl9 ? `${process.env.AIRKOREA_IMAGE_URL}/${imageUrl9}` : '',
-        informData: item.informData,
+        informDate: dateFormatter(item.informDate, 'YYYY-MM-DD HH:mm:ss', 'YYYY-MM-DD'),
       }
     });
 
+    const responseDate = {};
+    if(numOfRows) {
+      responseDate.numOfRows = numOfRows;
+      responseDate.pageNo = pageNo;
+    }
+    responseDate.totalCount = count;
+    responseDate.items = transData;
+
     return res
       .status(SUCCESS.status)
-      .send(createbaseResponseDTO(SUCCESS, {numOfRows: numOfRows, pageNo: pageNo, totalCount: count, items: transData}));
+      .send(createbaseResponseDTO(SUCCESS, responseDate));
   } catch(e) {
     next(e);
   }

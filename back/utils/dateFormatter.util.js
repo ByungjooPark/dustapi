@@ -73,7 +73,7 @@ export function getStartAndEndDateUsingDataTerm(dataTerm) {
 
 /**
  * 날짜를 기존 포맷에서 변경포맷으로 변경
- * @param {dayjs} val - 날짜
+ * @param {string} val - 날짜
  * @param {string} fromFormat - 기존 포멧 
  * @param {string} toFormat - 변경 포맷
  * @returns {string} 변경 포맷의 문자열

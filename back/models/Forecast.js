@@ -18,7 +18,7 @@ const attributes = {
   },
   dataTime: {
     field: 'data_time',
-    type: DataTypes.STRING(20),
+    type: DataTypes.DATE,
     allowNull: false,
     comment: '통보시간 (YYYY-MM-DD HH:mi)',
     get() {
@@ -61,7 +61,7 @@ const attributes = {
   },
   informDate: {
     field: 'inform_date',
-    type: DataTypes.STRING(20),
+    type: DataTypes.DATE,
     allowNull: false,
     comment: '예측통보시간(YYYY-MM-DD)',
     get() {
@@ -69,7 +69,7 @@ const attributes = {
       if(!val) {
         return null;
       }
-      return dateFormatter(val, 'YYYY-MM-DD HH:mm:ss', 'YYYY-MM-DD');
+      return dateFormatter(val, 'YYYY-MM-DD HH:mm:ss', 'YYYY-MM-DD HH:mm:ss');
     }
   },
   createdAt: {
