@@ -89,6 +89,10 @@ const Location = {
     }
 
     return defineLocations;
+  },
+  associate: (db) => {
+    // forecastAlert 1:n
+    db.Location.hasMany(db.ForecastAlert, {sourceKey: 'id', foreignKey: 'locationId'});
   }
 }
 

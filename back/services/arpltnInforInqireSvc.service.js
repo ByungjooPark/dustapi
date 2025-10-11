@@ -18,7 +18,7 @@ import { calculationLimitAndOffset } from "../utils/dataFormatter.util.js";
  * @param {import("express").Response} req 
  * @param {import("express").Request} res 
  * @param {import("express").NextFunction} next 
- * @returns {{pageNo: number, numOfRows: number, count: number, rows: import("sequelize").Model<Observation>[]}}
+ * @returns {{pageNo: number, numOfRows: number, count: number, rows: import('sequelize').Model<Observation>[]}}
  */
 export const getMsrstnAcctoRltmMesureDnsty = async (req, res, next) => {
   const {numOfRows = PAGINATION_POLICY_LIMIT, pageNo = PAGINATION_POLICY_PAGE_NO, stationName, dataTerm} = req.query;
@@ -49,7 +49,7 @@ export const getMsrstnAcctoRltmMesureDnsty = async (req, res, next) => {
  * @param {import("express").Response} req 
  * @param {import("express").Request} res 
  * @param {import("express").NextFunction} next 
- * @returns {{pageNo: number, numOfRows: number, count: number, rows: import("sequelize").Model<Observation>[]}}
+ * @returns {{pageNo: number, numOfRows: number, count: number, rows: import('sequelize').Model<Observation>[]}}
  */
 export const getCtprvnRltmMesureDnsty = async (req, res, next) => {
   const {numOfRows = PAGINATION_POLICY_LIMIT, pageNo = PAGINATION_POLICY_PAGE_NO, sidoName} = req.query;
@@ -81,7 +81,7 @@ export const getCtprvnRltmMesureDnsty = async (req, res, next) => {
  * @param {import("express").Response} req 
  * @param {import("express").Request} res 
  * @param {import("express").NextFunction} next 
- * @returns {{count: number, rows: import("sequelize").Model<Forecast>[], pageNo?: number, numOfRows?: number}}
+ * @returns {{count: number, rows: import('sequelize').Model<Forecast>[], pageNo?: number, numOfRows?: number}}
  */
 export async function getMinuDustFrcstDspth(req, res, next) {
   const {numOfRows = PAGINATION_POLICY_LIMIT, pageNo = PAGINATION_POLICY_PAGE_NO, searchDate = null, informCode = null} = req.query;

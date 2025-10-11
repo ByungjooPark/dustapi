@@ -19,16 +19,16 @@ const { Station } = db;
 export async function paginationMsrstnListByAddr(t = null, params) {
   const {limit, offset, addr, stationName} = params;
 
-  const stationWhere = {}
+  const whereClause = {}
   if(addr) {
-    stationWhere.sidoName = addr;
+    whereClause.sidoName = addr;
   } else if(stationName) {
-    stationWhere.stationName = stationName;
+    whereClause.stationName = stationName;
   }
 
   return await Station.findAndCountAll(
     {
-      where: stationWhere,
+      where: whereClause,
       limit: limit,
       offset: offset,
       order: [

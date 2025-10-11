@@ -146,6 +146,10 @@ const forecastAlert = {
     }
 
     return defineForecastAlerts;
+  },
+  associate: (db) => {
+    // Location 1:n
+    db.ForecastAlert.belongsTo(db.Location, {targetKey: 'id', foreignKey: 'locationId'});
   }
 }
 

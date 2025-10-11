@@ -46,7 +46,8 @@ db.Observation = Observation.init(sequelize);
 Station.associate(db);
 ForecastImage.associate(db);
 Forecast.associate(db);
-// Location.associate(db);
+Location.associate(db);
+ForecastAlert.associate(db);
 Observation.associate(db);
 
 export default db;

@@ -20,17 +20,17 @@ export const paginationForecast = async (t= null, params) => {
   const {limit, offset, informCode, searchDateList, searchDate} = params;
 
   // where절 생성
-  const whereForecastImage = {}
-  whereForecastImage.dataTime = {
+  const whereClause = {}
+  whereClause.dataTime = {
     [Op.in]: searchDateList,
   }
   
   if(informCode) {
-    whereForecastImage.informCode = informCode;
+    whereClause.informCode = informCode;
   }
 
   const options ={
-    where: whereForecastImage,
+    where: whereClause,
     order: [
       ['informCode', 'ASC'],
       ['dataTime', 'ASC'],

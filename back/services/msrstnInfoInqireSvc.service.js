@@ -14,7 +14,7 @@ import { calculationLimitAndOffset } from "../utils/dataFormatter.util.js";
  * @param {import("express").Response} req 
  * @param {import("express").Request} res 
  * @param {import("express").NextFunction} next 
- * @returns {{pageNo: number, numOfRows: number, count: number, rows: import("sequelize").Model<Station>[]}}
+ * @returns {{pageNo: number, numOfRows: number, count: number, rows: import('sequelize').Model<Station>[]}}
  */
 export async function getMsrstnList(req, res, next) {
   const {numOfRows = PAGINATION_POLICY_LIMIT, pageNo = PAGINATION_POLICY_PAGE_NO, addr, stationName} = req.query;
@@ -42,7 +42,7 @@ export async function getMsrstnList(req, res, next) {
  * @param {import("express").Response} req 
  * @param {import("express").Request} res 
  * @param {import("express").NextFunction} next 
- * @returns {{pageNo: number, numOfRows: number, count: number, rows: import("sequelize").Model<Observation>[]}}
+ * @returns {{pageNo: number, numOfRows: number, count: number, rows: import('sequelize').Model<Observation>[]}}
  */
 export async function getAllMsrstnListByTm(req, res, next) {
   const {tmX, tmY} = req.query;

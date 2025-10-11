@@ -19,12 +19,12 @@ const { Observation, Station } = db;
 export const paginationObservations = async (t = null, params) => {
   const {limit, offset, startDate, endDate, stationName, sidoName} = params;
 
-  const stationWhere = {};
+  const whereClauseStation = {};
   if(stationName) {
-    stationWhere.stationName = stationName;
+    whereClauseStation.stationName = stationName;
   }
   if(sidoName) {
-    stationWhere.sidoName = sidoName;
+    whereClauseStation.sidoName = sidoName;
   }
   
   return await Observation.findAndCountAll(
@@ -43,7 +43,7 @@ export const paginationObservations = async (t = null, params) => {
       include: [{
         model: Station,
         required: true,
-        where: stationWhere,
+        where: whereClauseStation,
       }]
     },
     { transaction: t },
