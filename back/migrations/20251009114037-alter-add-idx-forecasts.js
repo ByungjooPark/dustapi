@@ -9,10 +9,10 @@
 /** @type {import('sequelize-cli').Migration} */
 export default {
   async up (queryInterface, Sequelize) {
-    await queryInterface.addIndex('forecasts', ['inform_date'], {name: 'idx_forecasts_inform_date'});
+    await queryInterface.addIndex('forecasts', ['data_time'], {name: 'idx_forecasts_data_time'});
   },
 
   async down (queryInterface, Sequelize) {
-    await queryInterface.removeIndex('forecasts', 'idx_forecasts_inform_date');
+    await queryInterface.removeIndex('forecasts', 'idx_forecasts_data_time');
   }
 };

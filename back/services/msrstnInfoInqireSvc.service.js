@@ -4,8 +4,9 @@
  * 251011 v1.0 meerkat
  */
 
-import { calculationLimitAndOffset, PAGINATION_POLICY_LIMIT, PAGINATION_POLICY_PAGE_NO } from "../configs/paginationPolicy.config.js";
+import { PAGINATION_POLICY_LIMIT, PAGINATION_POLICY_PAGE_NO } from "../configs/paginationPolicy.config.js";
 import { getMsrstnListByTm, paginationMsrstnListByAddr } from "../repositories/station.repository.js";
+import { calculationLimitAndOffset } from "../utils/dataFormatter.util.js";
 
 /**
  * 측정소 주소 또는 측정소 명칭으로 검색하여 측정소 목록 또는 단 건의 측정소 상세 정보 조회 기능

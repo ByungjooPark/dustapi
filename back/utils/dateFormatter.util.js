@@ -73,9 +73,9 @@ export function getStartAndEndDateUsingDataTerm(dataTerm) {
 
 /**
  * 날짜를 기존 포맷에서 변경포맷으로 변경
- * @param {*} val - 날짜
- * @param {*} fromFormat - 기존 포멧 
- * @param {*} toFormat - 변경 포맷
+ * @param {dayjs} val - 날짜
+ * @param {string} fromFormat - 기존 포멧 
+ * @param {string} toFormat - 변경 포맷
  * @returns {string} 변경 포맷의 문자열
  */
 export function dateFormatter(val, fromFormat, toFormat) {
@@ -83,4 +83,36 @@ export function dateFormatter(val, fromFormat, toFormat) {
     throw commonError(SYSTEM_ERROR, `dateFormatter.util/dateFormatter: [${val}] [${fromFormat}] [${toFormat}]`);
   }
   return dayjs(val, fromFormat).format(toFormat);
+}
+
+/**
+ * 기준일 기준으로 시간간격의 가장 큰 시를 설정하여 'YYYY-MM-DD HH:mm:ss' 포맷 반환
+ * 
+ * @param {dayjs} checkDate 
+ * @param {dayjs} baseDate 
+ * @returns {string} 시간 간격 조절 된 데이트 포맷
+ */
+export function getLargestDateTimeByHourPeriod(checkDate, baseDate) {
+  const hourPeriodList = [5, 11, 17, 23];
+  let confirmedDate = null;
+  let loopDate = checkDate.minute(0).second(0);
+
+  for (const hour of hourPeriodList) {
+    // 시간 간격 시간 조절
+    loopDate = loopDate.hour(hour);
+
+    // 기준일보다 미래인 경우 루프 종료
+    if(!loopDate.isBefore(baseDate)) {
+      // 기간 간격 시가 5시일 경우, 하루 전 최대 시간간격 시로 확정
+      if(hour === hourPeriodList[0]) {
+        confirmedDate = loopDate.hour(hourPeriodList[hourPeriodList.length - 1]).subtract(1, 'day');
+      }
+      break;
+    }
+
+    // 시간간격 확정일자 셋
+    confirmedDate = loopDate.clone();
+  }
+
+  return confirmedDate.format('YYYY-MM-DD HH:mm:ss');
 }

@@ -4,7 +4,7 @@
  * 251007 v1.0 meerkat
  */
 
-import { numOfRows, pageNo, returnType, searchDate, serviceKey } from "./fields/arpltnInforInqireSvc.field.js";
+import { informCode, numOfRows, pageNo, returnType, searchDate, serviceKey } from "./fields/arpltnInforInqireSvc.field.js";
 
 export default [
   serviceKey,
@@ -12,4 +12,5 @@ export default [
   numOfRows,
   pageNo,
   searchDate,
+  informCode
 ];

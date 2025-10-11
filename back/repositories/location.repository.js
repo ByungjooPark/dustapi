@@ -8,6 +8,12 @@ import db from '../db_index.js';
 
 const { Location } = db;
 
+/**
+ * 모든 Location을 배열로 획득
+ * 
+ * @param {Sequelize.transaction} t  
+ * @returns {import('sequelize').Model<Location>[]}
+ */
 export const getAllLocations = async (t = null) => {
   return await Location.findAll(
     {

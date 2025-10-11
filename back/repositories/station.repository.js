@@ -9,6 +9,13 @@ import db from '../db_index.js';
 
 const { Station } = db;
 
+/**
+ * Station 페이지네이션 획득
+ * 
+ * @param {Sequelize.transaction} t 
+ * @param {{limit: number, offset: number, addr: string, stationName: string}} params 
+ * @returns {import('sequelize').Model<Station>[]}
+ */
 export async function paginationMsrstnListByAddr(t = null, params) {
   const {limit, offset, addr, stationName} = params;
 
@@ -33,7 +40,13 @@ export async function paginationMsrstnListByAddr(t = null, params) {
   );
 }
 
-
+/**
+ * 특정 위도, 경도로 가장 가까운 측정소 리스트 10곳 획득
+ * 
+ * @param {Sequelize.transaction} t 
+ * @param {{tmX: string, tmY: string}} params 
+ * @returns {import('sequelize').Model<Station>[]}
+ */
 export async function getMsrstnListByTm(t = null, params) {
   const {tmX, tmY} = params;
 

@@ -6,6 +6,7 @@
 
 import { query } from 'express-validator';
 import { dateTermList, informCodeList, sidoNameList, verList } from '../../../configs/fieldParams.config.js';
+import dayjs from 'dayjs';
 
 // serviceKey: 필수
 export const serviceKey = query('serviceKey')
@@ -57,12 +58,14 @@ export const sidoName = query('sidoName')
 // searchDate: 선택
 export const searchDate = query('searchDate')
   .optional()
-  .matches(/^\d{4}-\d{2}-\d{2}$/)
+  .matches(/^\d{4}-\d{2}-\d{2}$/u)
   .withMessage('YYYY-MM-DD 양식으로 작성해주십시오.')
-  .bail()
   .custom((val) =>{
-    return val === process.env.DUST_API_SERVICEKEY;
-  }).withMessage('YYYY-MM-DD 양식으로 작성해주십시오.');
+    const now = dayjs();
+    const searchDate = dayjs(val, 'YYYY-MM-DD');
+    return searchDate.isBefore(now) || searchDate.isSame(now);
+  })
+  .withMessage('미래는 설정할 수 없습니다.');
 
 // informCode: 선택
 export const informCode = query('informCode')

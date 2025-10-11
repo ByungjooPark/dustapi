@@ -9,6 +9,13 @@ import db from '../db_index.js';
 
 const { Observation, Station } = db;
 
+/**
+ * Observation 페이지네이션
+ * 
+ * @param {Sequelize.transaction} t 
+ * @param {{limit: number, offset: number, startDate: string, endDate: string, stationName: string, stationName: sidoName}} params 
+ * @returns {import('sequelize').Model<Observation>[]}
+ */
 export const paginationObservations = async (t = null, params) => {
   const {limit, offset, startDate, endDate, stationName, sidoName} = params;
 
@@ -43,6 +50,13 @@ export const paginationObservations = async (t = null, params) => {
   );
 }
 
+/**
+ * 특정 일 오염물질 별 평균을 배열로 획득
+ * 
+ * @param {Sequelize.transaction} t 
+ * @param {{startDate: string, endDate: string}} params 
+ * @returns {import('sequelize').Model<Observation>[]}
+ */
 export const averageToDateByDistrict = async (t = null, params) => {
   const {startDate, endDate} = params;
 
@@ -73,6 +87,13 @@ export const averageToDateByDistrict = async (t = null, params) => {
   );
 }
 
+/**
+ * 특정 Location의 특정 하루 오염물질 별 평균을 배열로 획득
+ * 
+ * @param {Sequelize.transaction} t 
+ * @param {{locId: number, startDate: string, endDate: string}} params 
+ * @returns {import('sequelize').Model<Observation>[]}
+ */
 export const averageToDateByLocation = async (t = null, params) => {
   const {locId, startDate, endDate} = params;
 

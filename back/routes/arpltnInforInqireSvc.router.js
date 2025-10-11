@@ -11,7 +11,7 @@ import getUnityAirEnvrnIdexSnstiveAboveMsrstnListValidator from '../validations/
 import getCtprvnRltmMesureDnstyValidator from '../validations/arpltnInforInqireSvc/getCtprvnRltmMesureDnsty.validator.js';
 import getMinuDustFrcstDspthValidator from '../validations/arpltnInforInqireSvc/getMinuDustFrcstDspth.validator.js';
 import getMinuDustWeekFrcstDspthValidator from '../validations/arpltnInforInqireSvc/getMinuDustWeekFrcstDspth.validator.js';
-import { ctprvnRltmMesureDnsty, msrstnAcctoRltmMesureDnsty } from '../controllers/arpltnInforInqireSvc.controller.js';
+import { ctprvnRltmMesureDnsty, minuDustFrcstDspth, msrstnAcctoRltmMesureDnsty } from '../controllers/arpltnInforInqireSvc.controller.js';
 
 const router = express.Router();
 
@@ -27,9 +27,7 @@ router.get('/getUnityAirEnvrnIdexSnstiveAboveMsrstnList', getUnityAirEnvrnIdexSn
 router.get('/getCtprvnRltmMesureDnsty', getCtprvnRltmMesureDnstyValidator, validationHandler, ctprvnRltmMesureDnsty);
 
 // 대기질 예보통보 조회
-router.get('/getMinuDustFrcstDspth', getMinuDustFrcstDspthValidator, validationHandler, (req, res) => {
-  res.send('getMinuDustFrcstDspth');
-});
+router.get('/getMinuDustFrcstDspth', getMinuDustFrcstDspthValidator, validationHandler, minuDustFrcstDspth);
 
 // 초미세먼지 주간예보 조회
 router.get('/getMinuDustWeekFrcstDspth', getMinuDustWeekFrcstDspthValidator, validationHandler, (req, res) => {

@@ -7,7 +7,7 @@
 import { verList } from "../configs/fieldParams.config.js";
 import { SUCCESS } from "../configs/responseCode.config.js";
 import { createbaseResponseDTO } from "../dto/baseResponse.dto.js";
-import { getCtprvnRltmMesureDnsty, getMsrstnAcctoRltmMesureDnsty } from "../services/arpltnInforInqireSvc.service.js";
+import { getCtprvnRltmMesureDnsty, getMinuDustFrcstDspth, getMsrstnAcctoRltmMesureDnsty } from "../services/arpltnInforInqireSvc.service.js";
 import { subDecimalPlace } from "../utils/dataFormatter.util.js";
 
 /**
@@ -172,7 +172,61 @@ export async function ctprvnRltmMesureDnsty(req, res, next) {
 
       return data;
     });
-    console.log({numOfRows: numOfRows, pageNo: pageNo, totalCount: count});
+    
+    return res
+      .status(SUCCESS.status)
+      .send(createbaseResponseDTO(SUCCESS, {numOfRows: numOfRows, pageNo: pageNo, totalCount: count, items: transData}));
+  } catch(e) {
+    next(e);
+  }
+}
+
+/**
+ * 대기오염정보 기술문서 - 상세기능 4 : 대기질 예보통보 조회
+ * 통보코드와 통보시간으로 예보정보와 발생 원인 정보를 조회하는 대기질(미세먼지/오존) 예보통보 조회
+ * 매일 4회(오전5시, 오전 11시, 오후5시(17시), 오후11시(23시))에 19개 권역으로 발표
+ * 
+ * @param {import("express").Response} req 
+ * @param {import("express").Request} res 
+ * @param {import("express").NextFunction} next 
+ * @returns {import("express").Request} res
+ */
+export async function minuDustFrcstDspth(req, res, next) {
+  try {
+    const {numOfRows = null, pageNo = null, count, rows} = await getMinuDustFrcstDspth(req, res, next);
+
+    // Response Data 가공
+    const transData = rows.map(item => {
+      const imageUrl1 = item.ForecastImages.find(fi => fi.position === 1).imageUrl;
+      const imageUrl2 = item.ForecastImages.find(fi => fi.position === 2).imageUrl;
+      const imageUrl3 = item.ForecastImages.find(fi => fi.position === 3).imageUrl;
+      const imageUrl4 = item.ForecastImages.find(fi => fi.position === 4).imageUrl;
+      const imageUrl5 = item.ForecastImages.find(fi => fi.position === 5).imageUrl;
+      const imageUrl6 = item.ForecastImages.find(fi => fi.position === 6).imageUrl;
+      const imageUrl7 = item.ForecastImages.find(fi => fi.position === 7).imageUrl;
+      const imageUrl8 = item.ForecastImages.find(fi => fi.position === 8).imageUrl;
+      const imageUrl9 = item.ForecastImages.find(fi => fi.position === 9).imageUrl;
+
+      return {
+        dataTime: item.dataTime,
+        informCode: item.informCode,
+        informOverall: item.informOverall,
+        informCause: item.informCause,
+        informGrade: item.informGrade,
+        actionKnack: '-',
+        imageUrl1: imageUrl1 ? `${process.env.AIRKOREA_IMAGE_URL}/${imageUrl1}` : '',
+        imageUrl2: imageUrl2 ? `${process.env.AIRKOREA_IMAGE_URL}/${imageUrl2}` : '',
+        imageUrl3: imageUrl3 ? `${process.env.AIRKOREA_IMAGE_URL}/${imageUrl3}` : '',
+        imageUrl4: imageUrl4 ? `${process.env.AIRKOREA_IMAGE_URL}/${imageUrl4}` : '',
+        imageUrl5: imageUrl5 ? `${process.env.AIRKOREA_IMAGE_URL}/${imageUrl5}` : '',
+        imageUrl6: imageUrl6 ? `${process.env.AIRKOREA_IMAGE_URL}/${imageUrl6}` : '',
+        imageUrl7: imageUrl7 ? `${process.env.AIRKOREA_IMAGE_URL}/${imageUrl7}` : '',
+        imageUrl8: imageUrl8 ? `${process.env.AIRKOREA_IMAGE_URL}/${imageUrl8}` : '',
+        imageUrl9: imageUrl9 ? `${process.env.AIRKOREA_IMAGE_URL}/${imageUrl9}` : '',
+        informData: item.informData,
+      }
+    });
+
     return res
       .status(SUCCESS.status)
       .send(createbaseResponseDTO(SUCCESS, {numOfRows: numOfRows, pageNo: pageNo, totalCount: count, items: transData}));
