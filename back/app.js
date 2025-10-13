@@ -12,9 +12,11 @@ import reuterMsrstnInfoInqireSvc from './routes/msrstnInfoInqireSvc.router.js'
 import { NOT_FOUND_ERROR } from './configs/responseCode.config.js';
 import errorHandler from './errors/errorHandler.js';
 import morgan from './configs/morgan.config.js'
+import { corsConfig } from './configs/cors.config.js';
 
 const app = express(); // Express 애플리케이션 인스턴스를 생성
 
+app.use(cors(corsConfig));
 app.use(morgan);
 
 app.use('/B552584/ArpltnInforInqireSvc', routerArpltnInforInqireSvc);
