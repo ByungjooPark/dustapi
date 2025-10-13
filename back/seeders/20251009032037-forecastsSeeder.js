@@ -8,7 +8,7 @@ import dayjs from 'dayjs';
 import db from '../db_index.js';
 import { informCodeList } from '../configs/fieldParams.config.js';
 import { convertGradeToKorean, generateGradeInfoO3, generateGradeInfoPm10, generateGradeInfoPm25 } from '../utils/calcuratorCAI.util.js';
-import { averageToDateByDistrict } from '../repositories/Observation.repository.js';
+import { averageToDateByDistrict } from '../repositories/observation.repository.js';
 const {sequelize} = db;
 
 /** @type {import('sequelize-cli').Migration} */
@@ -30,9 +30,6 @@ export default {
     while(dataTime.isBefore(END_DATE, 'day')) {
       // 시간 초기화
       const informDate = dataTime.startOf('day');
-      const targetDate = informDate.add(1, 'day');
-      const startDate = targetDate.format('YYYY-MM-DD HH:mm:ss');
-      const endDate = targetDate.format('YYYY-MM-DD HH:mm:ss');
       const o3Flg = (informDate.isAfter(O3_START_DATE, 'day') || informDate.isSame(O3_START_DATE, 'day')) && informDate.isBefore(O3_END_DATE, 'day');
 
       // 데이터 초기화
@@ -57,43 +54,49 @@ export default {
         }
       }
 
-      // 지역별 오염물질 지수 평균 획득
-      const result = await averageToDateByDistrict(null, {startDate, endDate});
-      
-      // 데이터 가공 처리
-      for await (const item of result) {
-        const gradeInfoPm10 = generateGradeInfoPm10(item.avgPm10);
-        informCodeInfo.pm10.gradeCnt[gradeInfoPm10.grade].push(item.sidoName);
-        gradeInfoPm10List.push(`${item.sidoName} : ${convertGradeToKorean(gradeInfoPm10.grade)}`);
+      // 3일치 데이터 생성
+      for(let i = 0; i < 3; i++) {
+        const targetDate = informDate.add(i, 'day');
+        let startDate = targetDate.format('YYYY-MM-DD HH:mm:ss');
+        let endDate = targetDate.endOf('day').format('YYYY-MM-DD HH:mm:ss');
 
-        const gradeInfoPm25 = generateGradeInfoPm25(item.avgPm25);
-        informCodeInfo.pm25.gradeCnt[gradeInfoPm25.grade].push(item.sidoName);
-        gradeInfoPm25List.push(`${item.sidoName} : ${convertGradeToKorean(gradeInfoPm25.grade)}`);
-
-        if(o3Flg) {
-          const gradeInfoO3 = generateGradeInfoO3(item.avgO3);
-          informCodeInfo.o3.gradeCnt[gradeInfoO3.grade].push(item.sidoName);
-          gradeInfoO3List.push(`${item.sidoName} : ${convertGradeToKorean(gradeInfoO3.grade)}`);
+        // 지역별 오염물질 지수 평균 획득
+        const result = await averageToDateByDistrict(null, {startDate, endDate});
+        
+        // 데이터 가공 처리
+        for await (const item of result) {
+          const gradeInfoPm10 = generateGradeInfoPm10(item.avgPm10);
+          informCodeInfo.pm10.gradeCnt[gradeInfoPm10.grade].push(item.sidoName);
+          gradeInfoPm10List.push(`${item.sidoName} : ${convertGradeToKorean(gradeInfoPm10.grade)}`);
+  
+          const gradeInfoPm25 = generateGradeInfoPm25(item.avgPm25);
+          informCodeInfo.pm25.gradeCnt[gradeInfoPm25.grade].push(item.sidoName);
+          gradeInfoPm25List.push(`${item.sidoName} : ${convertGradeToKorean(gradeInfoPm25.grade)}`);
+  
+          if(o3Flg) {
+            const gradeInfoO3 = generateGradeInfoO3(item.avgO3);
+            informCodeInfo.o3.gradeCnt[gradeInfoO3.grade].push(item.sidoName);
+            gradeInfoO3List.push(`${item.sidoName} : ${convertGradeToKorean(gradeInfoO3.grade)}`);
+          }
         }
-      }
-
-      // 삽입 데이터 객체 생성
-
-      const informOverallPm10 = generateInformOverall(informCodeInfo.pm10.gradeCnt, informCodeInfo.pm10.title);
-      const informCausePm10 = generateInformCause(informCodeInfo.pm10.gradeCnt, informCodeInfo.pm10.title);
-      resultData.push(generateDataForecast([dataTime, INFORE_CODE_PM10, informOverallPm10, informCausePm10, gradeInfoPm10List, '', targetDate]));
-      cnt++;
-
-      const informOverallPm25 = generateInformOverall(informCodeInfo.pm25.gradeCnt, informCodeInfo.pm25.title);
-      const informCausePm25 = generateInformCause(informCodeInfo.pm25.gradeCnt, informCodeInfo.pm25.title);
-      resultData.push(generateDataForecast([dataTime, INFORE_CODE_PM25, informOverallPm25, informCausePm25, gradeInfoPm25List, '', targetDate]));
-      cnt++
-
-      if(o3Flg) {
-        const informOverallO3 = generateInformOverall(informCodeInfo.o3.gradeCnt, informCodeInfo.o3.title);
-        const informCauseO3 = generateInformCause(informCodeInfo.o3.gradeCnt, informCodeInfo.o3.title);
-        resultData.push(generateDataForecast([dataTime, INFORE_CODE_O3, informOverallO3, informCauseO3, gradeInfoO3List, '', targetDate]));
+  
+        // 삽입 데이터 객체 생성
+        const informOverallPm10 = generateInformOverall(informCodeInfo.pm10.gradeCnt, informCodeInfo.pm10.title);
+        const informCausePm10 = generateInformCause(informCodeInfo.pm10.gradeCnt, informCodeInfo.pm10.title);
+        resultData.push(generateDataForecast([dataTime, INFORE_CODE_PM10, informOverallPm10, informCausePm10, gradeInfoPm10List, '', targetDate]));
         cnt++;
+  
+        const informOverallPm25 = generateInformOverall(informCodeInfo.pm25.gradeCnt, informCodeInfo.pm25.title);
+        const informCausePm25 = generateInformCause(informCodeInfo.pm25.gradeCnt, informCodeInfo.pm25.title);
+        resultData.push(generateDataForecast([dataTime, INFORE_CODE_PM25, informOverallPm25, informCausePm25, gradeInfoPm25List, '', targetDate]));
+        cnt++
+  
+        if(o3Flg) {
+          const informOverallO3 = generateInformOverall(informCodeInfo.o3.gradeCnt, informCodeInfo.o3.title);
+          const informCauseO3 = generateInformCause(informCodeInfo.o3.gradeCnt, informCodeInfo.o3.title);
+          resultData.push(generateDataForecast([dataTime, INFORE_CODE_O3, informOverallO3, informCauseO3, gradeInfoO3List, '', targetDate]));
+          cnt++;
+        }
       }
 
       // Row 데이터 Insert

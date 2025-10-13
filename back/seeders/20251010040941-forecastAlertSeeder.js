@@ -10,7 +10,7 @@ import readline from 'readline';
 import { getAllLocations } from '../repositories/location.repository.js';
 import { informCodeList } from '../configs/fieldParams.config.js';
 import dayjs from 'dayjs';
-import { averageToDateByLocation } from '../repositories/Observation.repository.js';
+import { averageToDateByLocation } from '../repositories/observation.repository.js';
 import { subDecimalPlace } from '../utils/dataFormatter.util.js';
 
 /** @type {import('sequelize-cli').Migration} */
