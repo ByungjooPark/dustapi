@@ -9,6 +9,6 @@ export const corsConfig = {
     'http://localhost:*',
     'https://app12.green-meerkat.kro.kr'
   ],
-  methods: ['GET'],
+  methods: ['GET', 'OPTIONS'],
   credentials: true,
 }
