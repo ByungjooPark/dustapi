@@ -6,7 +6,7 @@
 
 export const corsConfig = {
   origin: [
-    'localhost:*'
+    'http://localhost:*'
   ],
   methods: ['GET'],
 }
