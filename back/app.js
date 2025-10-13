@@ -26,7 +26,7 @@ app.use('/B552584/MsrstnInfoInqireSvc', reuterMsrstnInfoInqireSvc);
 
 // Not Found
 app.use((req, res) => {
-  res.status(NOT_FOUND_ERROR.status).send(NOT_FOUND_ERROR)
+  res.status(NOT_FOUND_ERROR.status).send(NOT_FOUND_ERROR);
 });
 
 // Error Handler
