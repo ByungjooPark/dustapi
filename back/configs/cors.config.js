@@ -8,6 +8,7 @@ import { CorsError } from "../errors/customize/CorsError.js";
 
 const allowedOrigins = [
   'http://localhost:5173',
+  'http://localhost:4173',
   'https://architects-mocha.vercel.app',
   'https://wahitworks.vercel.app',
 ];
