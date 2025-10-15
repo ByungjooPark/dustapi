@@ -6,7 +6,8 @@
 
 const allowedOrigins = [
   'http://localhost:5173',
-  'https://app12.green-meerkat.kro.kr'
+  'https://architects-mocha.vercel.app',
+  'https://wahitworks.vercel.app',
 ];
 
 export const corsConfig = {
