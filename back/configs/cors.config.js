@@ -4,6 +4,8 @@
  * 251013 v1.0 meerkat
  */
 
+import { CorsError } from "../errors/customize/CorsError.js";
+
 const allowedOrigins = [
   'http://localhost:5173',
   'https://architects-mocha.vercel.app',
@@ -16,7 +18,7 @@ export const corsConfig = {
     if (!origin || allowedOrigins.indexOf(origin) !== -1) {
       callback(null, true); // 허용
     } else {
-      callback(new Error('Not allowed by CORS')); // 거부
+      callback(new CorsError(`Not allowed by CORS : ${origin}`)); // 거부
     }
   },
   methods: ['GET', 'OPTIONS'],

@@ -13,14 +13,17 @@ import { logger } from "../configs/winston.config.js";
  * `err.codeInfo`은 {import('../types/configs/responseCode.config.type.js').ResponseCodeConfig}
  */
 export default (err, req, res, next) => {
-  // Sequelize 에러 처리
-  if(err instanceof BaseError) {
-    err.codeInfo = DB_ERROR;
-  } else {
+  if(!err.codeInfo) {
+    // codeInfo가 없을 시, 시스템에러로 초기화
     err.codeInfo = SYSTEM_ERROR;
+
+    // Sequelize 에러 처리
+    if(err instanceof BaseError) {
+      err.codeInfo = DB_ERROR;
+    }
   }
   
-  logger.error(`${err.name}: ${err.message}\n${err.stack}`);
+  logger.error(`${err.stack}`);
 
   res.status(err.codeInfo.status).send(err.codeInfo);
 }
