@@ -38,7 +38,7 @@ export const pageNo = query('pageNo')
 export const stationName = query('stationName')
   .exists().withMessage('필수 요소입니다.')
   .bail()
-  .matches(/^[A-Za-z가-힣0-9()]{1,30}$/u)
+  .matches(/^[A-Za-z가-힣0-9(). ]{1,30}$/u)
   .withMessage('부적절한 측정소명입니다.');
 
 // dataTerm: 필수
