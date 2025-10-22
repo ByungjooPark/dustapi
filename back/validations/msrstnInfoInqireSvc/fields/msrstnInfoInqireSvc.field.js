@@ -42,7 +42,7 @@ export const addr = query('addr')
 // stationName: 선택
 export const stationName = query('stationName')
   .optional()
-  .matches(/^[A-Za-z가-힣0-9().]{1,30}$/u)
+  .matches(/^[A-Za-z가-힣0-9(). ]{1,30}$/u)
   .withMessage('부적절한 측정소명입니다.');
 
 // tmX: 필수
